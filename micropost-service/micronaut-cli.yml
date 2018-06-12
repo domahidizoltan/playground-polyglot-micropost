@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: micropost.service
+---
+testFramework: junit
+sourceLanguage: kotlin

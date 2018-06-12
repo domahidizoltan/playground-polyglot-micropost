@@ -1,7 +1,7 @@
 .gradle
-/build/
-/out/
-/bin/
+build
+out
+bin
 
 ### IntelliJ IDEA ###
 .idea

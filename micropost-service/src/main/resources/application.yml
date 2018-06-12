@@ -1,0 +1,8 @@
+---
+micronaut:
+    application:
+        name: micropost-service
+    server:
+        port:   8080
+---
+datasources.default: {}
