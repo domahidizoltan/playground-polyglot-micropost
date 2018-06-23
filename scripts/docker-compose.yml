@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres:9.5.12-alpine
+    container_name: micropost_db
+    environment:
+      POSTGRES_DB: micropost
+      POSTGRES_USER: micropost
+      POSTGRES_PASSWORD: ''
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    container_name: micropost_adminer
+    ports:
+      - 9000:8080

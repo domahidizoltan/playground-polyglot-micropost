@@ -5,4 +5,9 @@ micronaut:
     server:
         port: 8010
 ---
-datasources.default: {}
+datasources:
+  default:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/micropost
+    user: micropost
+    password: ''
