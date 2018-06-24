@@ -1,9 +1,10 @@
 package micropost.controller
 
-import data.dto.MicroPostDto
-import data.dto.UserDto
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.*
+import micropost.data.dto.MicroPostDto
+import micropost.data.dto.UserDto
+import micropost.data.mapper.toDto
 import micropost.data.tables.daos.UserDao
 
 @Controller("/users")
@@ -13,10 +14,7 @@ class UsersController(private val userDao: UserDao) {
     fun getAll(): List<UserDto> = listOf(UserDto(id = "test", email = "test@email.com"))
 
     @Get("/{id}")
-    fun getOne(id: String): UserDto {
-        val user = userDao.fetchOneById(id)
-        return UserDto(id = user.id, email = user.email)
-    }
+    fun getOne(id: String): UserDto = userDao.fetchOneById(id).toDto()
 
     @Get("/{id}/posts")
     fun getPosts(id: String): List<MicroPostDto> = listOf(MicroPostDto(id = 1, content = "test"))

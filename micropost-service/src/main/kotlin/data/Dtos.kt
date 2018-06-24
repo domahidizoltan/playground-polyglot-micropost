@@ -1,14 +1,12 @@
-package data.dto
+package micropost.data.dto
 
-import com.fasterxml.jackson.annotation.JsonFormat
-import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.Instant
 
-data class UserDto(val id: String = "",
-                   val email: String = "",
-                   val firstName: String = "",
-                   val lastName: String = "",
-                   val posts: List<MicroPostDto>? = null)
+data class UserDto(var id: String? = null,
+                   var email: String? = null,
+                   var firstName: String? = null,
+                   var lastName: String? = null,
+                   var posts: List<MicroPostDto>? = null)
 
 data class MicroPostDto(val id: Int = 0,
                         val content: String = "",

@@ -1,7 +1,7 @@
 package micropost.controller
 
-import data.dto.MicroPostDto
-import data.dto.UserDto
+import micropost.data.dto.MicroPostDto
+import micropost.data.dto.UserDto
 import io.micronaut.context.annotation.Parameter
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller
