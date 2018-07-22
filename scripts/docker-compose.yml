@@ -5,15 +5,33 @@ services:
   db:
     image: postgres:9.5.12-alpine
     container_name: micropost_db
+    restart: always
     environment:
       POSTGRES_DB: micropost
       POSTGRES_USER: micropost
-      POSTGRES_PASSWORD: ''
+      POSTGRES_PASSWORD: pass
     ports:
       - 5432:5432
+    volumes:
+      - ${PWD}/../micropost-service/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
 
   adminer:
     image: adminer
     container_name: micropost_adminer
+    restart: always
     ports:
       - 9000:8080
+
+  docker-registry:
+    image: registry:2.6.2
+    container_name: registry
+    restart: always
+    ports:
+      - 5000:5000
+    networks:
+      - kubeadm-dind-net
+
+networks:
+  kubeadm-dind-net:
+    external:
+      name: kubeadm-dind-net
