@@ -4,7 +4,7 @@
 package micropost.data.tables.daos;
 
 
-import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -75,7 +75,7 @@ public class MicropostDao extends DAOImpl<MicropostRecord, micropost.data.tables
     /**
      * Fetch records that have <code>created_at IN (values)</code>
      */
-    public List<micropost.data.tables.pojos.Micropost> fetchByCreatedAt(LocalTime... values) {
+    public List<micropost.data.tables.pojos.Micropost> fetchByCreatedAt(OffsetDateTime... values) {
         return fetch(Micropost.MICROPOST.CREATED_AT, values);
     }
 

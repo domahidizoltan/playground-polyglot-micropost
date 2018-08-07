@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "micropost",
-		"_postman_id": "ae27a451-08e7-3546-b576-200ce931e62b",
+		"_postman_id": "140120fe-d12e-7c30-ffe0-2b1e9cb6c867",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -17,7 +17,10 @@
 						"url": "{{host}}{{servicePort}}/users",
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -25,18 +28,7 @@
 				{
 					"name": "getUserById",
 					"request": {
-						"url": "{{host}}{{servicePort}}/users/1",
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "getUsersPosts",
-					"request": {
-						"url": "{{host}}{{servicePort}}/users/1",
+						"url": "{{host}}{{servicePort}}/users/id",
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -58,7 +50,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": \"id\",\n\t\"email\": \"email\",\n\t\"firstName\": \"firstName\",\n\t\"lastName\": \"lastName\",\n\t\"posts\": []\n}"
+							"raw": "{\n\t\"id\": \"id\",\n\t\"email\": \"email\",\n\t\"firstName\": \"firstName\",\n\t\"lastName\": \"lastName\"\n}"
 						},
 						"description": ""
 					},
@@ -67,7 +59,7 @@
 				{
 					"name": "updateUser",
 					"request": {
-						"url": "{{host}}{{servicePort}}/users/1",
+						"url": "{{host}}{{servicePort}}/users/id",
 						"method": "PUT",
 						"header": [
 							{
@@ -78,7 +70,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": \"id\",\n\t\"email\": \"email\",\n\t\"firstName\": \"firstName\",\n\t\"lastName\": \"lastName\",\n\t\"posts\": []\n}"
+							"raw": "{\n\t\"email\": \"email\",\n\t\"firstName\": \"firstName\",\n\t\"lastName\": \"lastName\"\n}"
 						},
 						"description": ""
 					},
@@ -87,9 +79,15 @@
 				{
 					"name": "deleteUser",
 					"request": {
-						"url": "{{host}}{{servicePort}}/users/1",
+						"url": "{{host}}{{servicePort}}/users/id",
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {},
 						"description": ""
 					},
@@ -118,6 +116,17 @@
 					"response": []
 				},
 				{
+					"name": "getUsersPosts",
+					"request": {
+						"url": "{{host}}{{servicePort}}/posts/user/id",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
 					"name": "savePost",
 					"request": {
 						"url": "{{host}}{{servicePort}}/posts",
@@ -131,7 +140,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": 1,\n\t\"content\": \"content\"\n}"
+							"raw": "{\n\t\"content\": \"content\",\n\t\"userId\": \"id\"\n}"
 						},
 						"description": ""
 					},
@@ -151,7 +160,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": 1,\n\t\"content\": \"content\"\n}"
+							"raw": "{\n\t\"content\": \"content\"\n}"
 						},
 						"description": ""
 					},
@@ -162,8 +171,24 @@
 					"request": {
 						"url": "{{host}}{{servicePort}}/posts/1",
 						"method": "DELETE",
-						"header": [],
-						"body": {},
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
 						"description": ""
 					},
 					"response": []

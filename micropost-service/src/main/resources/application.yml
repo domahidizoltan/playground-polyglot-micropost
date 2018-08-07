@@ -8,6 +8,6 @@ micronaut:
 datasources:
   default:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/micropost
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/micropost}
     user: micropost
     password: pass

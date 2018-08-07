@@ -5,8 +5,11 @@ import com.zaxxer.hikari.HikariDataSource
 import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Factory
 import micropost.configuration.properties.DbConnectionProperties
+import micropost.data.tables.daos.MicropostDao
 import micropost.data.tables.daos.UserDao
+import org.jooq.DSLContext
 import org.jooq.SQLDialect
+import org.jooq.impl.DSL
 import org.jooq.impl.DefaultConfiguration
 import javax.inject.Singleton
 import javax.sql.DataSource
@@ -43,4 +46,12 @@ class DataConfiguration {
     @Bean
     @Singleton
     fun userDao(configuration: JooqConfiguration): UserDao = UserDao(configuration)
+
+    @Bean
+    @Singleton
+    fun micropostDao(configuration: JooqConfiguration): MicropostDao = MicropostDao(configuration)
+
+    @Bean
+    @Singleton
+    fun jooqDsl(configuration: JooqConfiguration): DSLContext = DSL.using(configuration)
 }

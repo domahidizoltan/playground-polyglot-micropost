@@ -18,7 +18,7 @@ CREATE TABLE "public"."user" (
 CREATE TABLE "public"."micropost" (
     "id" integer DEFAULT nextval('micropost_id_seq') NOT NULL,
     "content" text NOT NULL,
-    "created_at" time without time zone NOT NULL,
+    "created_at" timestamp with time zone NOT NULL,
     "user_id" character varying(32) NOT NULL,
     CONSTRAINT "micropost_id" PRIMARY KEY ("id"),
     CONSTRAINT "micropost_user_id_fkey" FOREIGN KEY (user_id) REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE NOT DEFERRABLE

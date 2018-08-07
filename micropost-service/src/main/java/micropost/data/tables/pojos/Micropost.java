@@ -5,7 +5,7 @@ package micropost.data.tables.pojos;
 
 
 import java.io.Serializable;
-import java.time.LocalTime;
+import java.time.OffsetDateTime;
 
 import javax.annotation.Generated;
 
@@ -23,12 +23,12 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Micropost implements Serializable {
 
-    private static final long serialVersionUID = 1183594545;
+    private static final long serialVersionUID = 990462167;
 
-    private final Integer   id;
-    private final String    content;
-    private final LocalTime createdAt;
-    private final String    userId;
+    private final Integer        id;
+    private final String         content;
+    private final OffsetDateTime createdAt;
+    private final String         userId;
 
     public Micropost(Micropost value) {
         this.id = value.id;
@@ -38,10 +38,10 @@ public class Micropost implements Serializable {
     }
 
     public Micropost(
-        Integer   id,
-        String    content,
-        LocalTime createdAt,
-        String    userId
+        Integer        id,
+        String         content,
+        OffsetDateTime createdAt,
+        String         userId
     ) {
         this.id = id;
         this.content = content;
@@ -57,7 +57,7 @@ public class Micropost implements Serializable {
         return this.content;
     }
 
-    public LocalTime getCreatedAt() {
+    public OffsetDateTime getCreatedAt() {
         return this.createdAt;
     }
 

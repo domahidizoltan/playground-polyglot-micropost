@@ -4,7 +4,7 @@
 package micropost.data.tables;
 
 
-import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Micropost extends TableImpl<MicropostRecord> {
 
-    private static final long serialVersionUID = -327152360;
+    private static final long serialVersionUID = -414681291;
 
     /**
      * The reference instance of <code>public.micropost</code>
@@ -69,7 +69,7 @@ public class Micropost extends TableImpl<MicropostRecord> {
     /**
      * The column <code>public.micropost.created_at</code>.
      */
-    public final TableField<MicropostRecord, LocalTime> CREATED_AT = createField("created_at", org.jooq.impl.SQLDataType.LOCALTIME.nullable(false), this, "");
+    public final TableField<MicropostRecord, OffsetDateTime> CREATED_AT = createField("created_at", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.nullable(false), this, "");
 
     /**
      * The column <code>public.micropost.user_id</code>.

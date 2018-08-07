@@ -14,6 +14,8 @@ services:
       - 5432:5432
     volumes:
       - ${PWD}/../micropost-service/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - kubeadm-dind-net
 
   adminer:
     image: adminer
@@ -21,6 +23,8 @@ services:
     restart: always
     ports:
       - 9000:8080
+    networks:
+      - kubeadm-dind-net
 
   docker-registry:
     image: registry:2.6.2
