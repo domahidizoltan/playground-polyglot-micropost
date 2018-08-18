@@ -3,6 +3,7 @@ package micropost.controller
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.*
+import micropost.core.validateRequest
 import micropost.data.dto.MicropostDto
 import micropost.data.mapper.toDto
 import micropost.data.mapper.toEntity
@@ -10,10 +11,12 @@ import micropost.data.tables.Micropost
 import micropost.data.tables.daos.MicropostDao
 import org.jooq.DSLContext
 import java.time.Instant
+import javax.validation.Validator
 
 @Controller("/posts")
 class MicropostsController(private val micropostDao: MicropostDao,
-                           private val jooq: DSLContext) {
+                           private val jooq: DSLContext,
+                           private val validator: Validator) {
 
     @Get("/")
     fun getAll(): List<MicropostDto> = micropostDao.findAll()
@@ -28,6 +31,7 @@ class MicropostsController(private val micropostDao: MicropostDao,
 
     @Post("/")
     fun save(@Body post: MicropostDto): HttpStatus {
+        validator.validateRequest(post)
         post.createdAt = Instant.now().toString()
         micropostDao.insert(post.toEntity())
         return HttpStatus.CREATED
@@ -35,6 +39,7 @@ class MicropostsController(private val micropostDao: MicropostDao,
 
     @Put("/{id}")
     fun update(id: Int, @Body post: MicropostDto): HttpStatus {
+        validator.validateRequest(post)
         val thatPost = micropostDao.findById(id) ?: return HttpStatus.NOT_FOUND
         jooq.newRecord(Micropost.MICROPOST, thatPost).let {
             it.content = post.content

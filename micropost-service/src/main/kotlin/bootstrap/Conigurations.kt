@@ -13,6 +13,8 @@ import org.jooq.impl.DSL
 import org.jooq.impl.DefaultConfiguration
 import javax.inject.Singleton
 import javax.sql.DataSource
+import javax.validation.Validation
+import javax.validation.Validator
 import org.jooq.Configuration as JooqConfiguration
 
 @Factory
@@ -54,4 +56,8 @@ class DataConfiguration {
     @Bean
     @Singleton
     fun jooqDsl(configuration: JooqConfiguration): DSLContext = DSL.using(configuration)
+
+    @Bean
+    @Singleton
+    fun validator(): Validator = Validation.buildDefaultValidatorFactory().validator
 }
