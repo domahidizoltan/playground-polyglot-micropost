@@ -3,6 +3,7 @@ package micropost.controller
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.*
+import micropost.core.paginate
 import micropost.core.validateRequest
 import micropost.data.dto.MicropostDto
 import micropost.data.mapper.toDto
@@ -11,6 +12,7 @@ import micropost.data.tables.Micropost
 import micropost.data.tables.daos.MicropostDao
 import org.jooq.DSLContext
 import java.time.Instant
+import javax.annotation.Nullable
 import javax.validation.Validator
 
 @Controller("/posts")
@@ -19,9 +21,11 @@ class MicropostsController(private val micropostDao: MicropostDao,
                            private val validator: Validator) {
 
     @Get("/")
-    fun getAll(): List<MicropostDto> = micropostDao.findAll()
-            .map { it.toDto() }
-            .toCollection(ArrayList())
+    fun getAll(@Nullable @QueryValue("page") page: Int?,
+               @Nullable @QueryValue("size") size: Int?): List<MicropostDto> =
+            jooq.selectFrom(Micropost.MICROPOST)
+                    .paginate(page, size)
+                    .fetchInto(MicropostDto::class.java)
 
     @Get("/{id}")
     fun getOne(id: Int): HttpResponse<MicropostDto> {
