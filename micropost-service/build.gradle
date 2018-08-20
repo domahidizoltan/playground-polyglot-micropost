@@ -56,9 +56,11 @@ dependencies {
             "io.micronaut.configuration:jdbc-hikari",
             "io.micronaut:inject",
             "io.micronaut:runtime",
+            "io.micronaut.configuration:hibernate-validator",
             "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion",
             "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion",
             "org.jooq:jooq",
+            "org.springframework.hateoas:spring-hateoas:0.25.0.RELEASE",
     )
 
     //compile(Only) -> kapt order is mandatory

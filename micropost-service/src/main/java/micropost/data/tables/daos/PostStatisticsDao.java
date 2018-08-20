@@ -80,9 +80,9 @@ public class PostStatisticsDao extends DAOImpl<PostStatisticsRecord, micropost.d
     }
 
     /**
-     * Fetch records that have <code>micropost_id IN (values)</code>
+     * Fetch records that have <code>post_id IN (values)</code>
      */
-    public List<micropost.data.tables.pojos.PostStatistics> fetchByMicropostId(Integer... values) {
-        return fetch(PostStatistics.POST_STATISTICS.MICROPOST_ID, values);
+    public List<micropost.data.tables.pojos.PostStatistics> fetchByPostId(Integer... values) {
+        return fetch(PostStatistics.POST_STATISTICS.POST_ID, values);
     }
 }

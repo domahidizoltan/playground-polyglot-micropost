@@ -46,34 +46,34 @@ public class Keys {
 
     public static final UniqueKey<MicropostRecord> MICROPOST_ID = UniqueKeys0.MICROPOST_ID;
     public static final UniqueKey<PostStatisticsRecord> POST_STATISTICS_ID = UniqueKeys0.POST_STATISTICS_ID;
-    public static final UniqueKey<UserRecord> USER_ID = UniqueKeys0.USER_ID;
+    public static final UniqueKey<UserRecord> USER_NICKNAME = UniqueKeys0.USER_NICKNAME;
     public static final UniqueKey<UserRecord> USER_EMAIL = UniqueKeys0.USER_EMAIL;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<MicropostRecord, UserRecord> MICROPOST__MICROPOST_USER_ID_FKEY = ForeignKeys0.MICROPOST__MICROPOST_USER_ID_FKEY;
-    public static final ForeignKey<PostStatisticsRecord, MicropostRecord> POST_STATISTICS__POST_STATISTICS_MICROPOST_ID_FKEY = ForeignKeys0.POST_STATISTICS__POST_STATISTICS_MICROPOST_ID_FKEY;
+    public static final ForeignKey<MicropostRecord, UserRecord> MICROPOST__MICROPOST_USER_NICKNAME_FKEY = ForeignKeys0.MICROPOST__MICROPOST_USER_NICKNAME_FKEY;
+    public static final ForeignKey<PostStatisticsRecord, MicropostRecord> POST_STATISTICS__POST_STATISTICS_POST_ID_FKEY = ForeignKeys0.POST_STATISTICS__POST_STATISTICS_POST_ID_FKEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class Identities0 extends AbstractKeys {
-        public static Identity<MicropostRecord, Integer> IDENTITY_MICROPOST = createIdentity(Micropost.MICROPOST, Micropost.MICROPOST.ID);
+        public static Identity<MicropostRecord, Integer> IDENTITY_MICROPOST = createIdentity(Micropost.MICROPOST, Micropost.MICROPOST.POST_ID);
         public static Identity<PostStatisticsRecord, Integer> IDENTITY_POST_STATISTICS = createIdentity(PostStatistics.POST_STATISTICS, PostStatistics.POST_STATISTICS.ID);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
-        public static final UniqueKey<MicropostRecord> MICROPOST_ID = createUniqueKey(Micropost.MICROPOST, "micropost_id", Micropost.MICROPOST.ID);
+        public static final UniqueKey<MicropostRecord> MICROPOST_ID = createUniqueKey(Micropost.MICROPOST, "micropost_id", Micropost.MICROPOST.POST_ID);
         public static final UniqueKey<PostStatisticsRecord> POST_STATISTICS_ID = createUniqueKey(PostStatistics.POST_STATISTICS, "post_statistics_id", PostStatistics.POST_STATISTICS.ID);
-        public static final UniqueKey<UserRecord> USER_ID = createUniqueKey(User.USER, "user_id", User.USER.ID);
+        public static final UniqueKey<UserRecord> USER_NICKNAME = createUniqueKey(User.USER, "user_nickname", User.USER.NICKNAME);
         public static final UniqueKey<UserRecord> USER_EMAIL = createUniqueKey(User.USER, "user_email", User.USER.EMAIL);
     }
 
     private static class ForeignKeys0 extends AbstractKeys {
-        public static final ForeignKey<MicropostRecord, UserRecord> MICROPOST__MICROPOST_USER_ID_FKEY = createForeignKey(micropost.data.Keys.USER_ID, Micropost.MICROPOST, "micropost__micropost_user_id_fkey", Micropost.MICROPOST.USER_ID);
-        public static final ForeignKey<PostStatisticsRecord, MicropostRecord> POST_STATISTICS__POST_STATISTICS_MICROPOST_ID_FKEY = createForeignKey(micropost.data.Keys.MICROPOST_ID, PostStatistics.POST_STATISTICS, "post_statistics__post_statistics_micropost_id_fkey", PostStatistics.POST_STATISTICS.MICROPOST_ID);
+        public static final ForeignKey<MicropostRecord, UserRecord> MICROPOST__MICROPOST_USER_NICKNAME_FKEY = createForeignKey(micropost.data.Keys.USER_NICKNAME, Micropost.MICROPOST, "micropost__micropost_user_nickname_fkey", Micropost.MICROPOST.USER_NICKNAME);
+        public static final ForeignKey<PostStatisticsRecord, MicropostRecord> POST_STATISTICS__POST_STATISTICS_POST_ID_FKEY = createForeignKey(micropost.data.Keys.MICROPOST_ID, PostStatistics.POST_STATISTICS, "post_statistics__post_statistics_post_id_fkey", PostStatistics.POST_STATISTICS.POST_ID);
     }
 }

@@ -28,20 +28,20 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Record4<String, String, String, String> {
 
-    private static final long serialVersionUID = 410636566;
+    private static final long serialVersionUID = 904292080;
 
     /**
-     * Setter for <code>public.user.id</code>.
+     * Setter for <code>public.user.nickname</code>.
      */
-    public UserRecord setId(String value) {
+    public UserRecord setNickname(String value) {
         set(0, value);
         return this;
     }
 
     /**
-     * Getter for <code>public.user.id</code>.
+     * Getter for <code>public.user.nickname</code>.
      */
-    public String getId() {
+    public String getNickname() {
         return (String) get(0);
     }
 
@@ -127,7 +127,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
      */
     @Override
     public Field<String> field1() {
-        return User.USER.ID;
+        return User.USER.NICKNAME;
     }
 
     /**
@@ -159,7 +159,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
      */
     @Override
     public String component1() {
-        return getId();
+        return getNickname();
     }
 
     /**
@@ -191,7 +191,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
      */
     @Override
     public String value1() {
-        return getId();
+        return getNickname();
     }
 
     /**
@@ -223,7 +223,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
      */
     @Override
     public UserRecord value1(String value) {
-        setId(value);
+        setNickname(value);
         return this;
     }
 
@@ -280,10 +280,10 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
     /**
      * Create a detached, initialised UserRecord
      */
-    public UserRecord(String id, String email, String firstName, String lastName) {
+    public UserRecord(String nickname, String email, String firstName, String lastName) {
         super(User.USER);
 
-        set(0, id);
+        set(0, nickname);
         set(1, email);
         set(2, firstName);
         set(3, lastName);

@@ -38,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = 1661380184;
+    private static final long serialVersionUID = 431650686;
 
     /**
      * The reference instance of <code>public.user</code>
@@ -54,9 +54,9 @@ public class User extends TableImpl<UserRecord> {
     }
 
     /**
-     * The column <code>public.user.id</code>.
+     * The column <code>public.user.nickname</code>.
      */
-    public final TableField<UserRecord, String> ID = createField("id", org.jooq.impl.SQLDataType.VARCHAR(32).nullable(false), this, "");
+    public final TableField<UserRecord, String> NICKNAME = createField("nickname", org.jooq.impl.SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
      * The column <code>public.user.email</code>.
@@ -115,7 +115,7 @@ public class User extends TableImpl<UserRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.USER_EMAIL, Indexes.USER_ID);
+        return Arrays.<Index>asList(Indexes.USER_EMAIL, Indexes.USER_NICKNAME);
     }
 
     /**
@@ -123,7 +123,7 @@ public class User extends TableImpl<UserRecord> {
      */
     @Override
     public UniqueKey<UserRecord> getPrimaryKey() {
-        return Keys.USER_ID;
+        return Keys.USER_NICKNAME;
     }
 
     /**
@@ -131,7 +131,7 @@ public class User extends TableImpl<UserRecord> {
      */
     @Override
     public List<UniqueKey<UserRecord>> getKeys() {
-        return Arrays.<UniqueKey<UserRecord>>asList(Keys.USER_ID, Keys.USER_EMAIL);
+        return Arrays.<UniqueKey<UserRecord>>asList(Keys.USER_NICKNAME, Keys.USER_EMAIL);
     }
 
     /**

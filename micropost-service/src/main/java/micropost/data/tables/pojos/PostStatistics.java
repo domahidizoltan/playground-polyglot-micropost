@@ -22,30 +22,30 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PostStatistics implements Serializable {
 
-    private static final long serialVersionUID = 184567191;
+    private static final long serialVersionUID = 1630451305;
 
     private final Integer id;
     private final Integer words;
     private final Object  wordCounts;
-    private final Integer micropostId;
+    private final Integer postId;
 
     public PostStatistics(PostStatistics value) {
         this.id = value.id;
         this.words = value.words;
         this.wordCounts = value.wordCounts;
-        this.micropostId = value.micropostId;
+        this.postId = value.postId;
     }
 
     public PostStatistics(
         Integer id,
         Integer words,
         Object  wordCounts,
-        Integer micropostId
+        Integer postId
     ) {
         this.id = id;
         this.words = words;
         this.wordCounts = wordCounts;
-        this.micropostId = micropostId;
+        this.postId = postId;
     }
 
     public Integer getId() {
@@ -65,8 +65,8 @@ public class PostStatistics implements Serializable {
         return this.wordCounts;
     }
 
-    public Integer getMicropostId() {
-        return this.micropostId;
+    public Integer getPostId() {
+        return this.postId;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class PostStatistics implements Serializable {
         sb.append(id);
         sb.append(", ").append(words);
         sb.append(", ").append(wordCounts);
-        sb.append(", ").append(micropostId);
+        sb.append(", ").append(postId);
 
         sb.append(")");
         return sb.toString();

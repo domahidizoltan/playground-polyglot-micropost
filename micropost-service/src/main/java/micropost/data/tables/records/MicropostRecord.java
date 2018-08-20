@@ -30,20 +30,20 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MicropostRecord extends UpdatableRecordImpl<MicropostRecord> implements Record4<Integer, String, OffsetDateTime, String> {
 
-    private static final long serialVersionUID = -808332026;
+    private static final long serialVersionUID = 316188221;
 
     /**
-     * Setter for <code>public.micropost.id</code>.
+     * Setter for <code>public.micropost.post_id</code>.
      */
-    public MicropostRecord setId(Integer value) {
+    public MicropostRecord setPostId(Integer value) {
         set(0, value);
         return this;
     }
 
     /**
-     * Getter for <code>public.micropost.id</code>.
+     * Getter for <code>public.micropost.post_id</code>.
      */
-    public Integer getId() {
+    public Integer getPostId() {
         return (Integer) get(0);
     }
 
@@ -78,17 +78,17 @@ public class MicropostRecord extends UpdatableRecordImpl<MicropostRecord> implem
     }
 
     /**
-     * Setter for <code>public.micropost.user_id</code>.
+     * Setter for <code>public.micropost.user_nickname</code>.
      */
-    public MicropostRecord setUserId(String value) {
+    public MicropostRecord setUserNickname(String value) {
         set(3, value);
         return this;
     }
 
     /**
-     * Getter for <code>public.micropost.user_id</code>.
+     * Getter for <code>public.micropost.user_nickname</code>.
      */
-    public String getUserId() {
+    public String getUserNickname() {
         return (String) get(3);
     }
 
@@ -129,7 +129,7 @@ public class MicropostRecord extends UpdatableRecordImpl<MicropostRecord> implem
      */
     @Override
     public Field<Integer> field1() {
-        return Micropost.MICROPOST.ID;
+        return Micropost.MICROPOST.POST_ID;
     }
 
     /**
@@ -153,7 +153,7 @@ public class MicropostRecord extends UpdatableRecordImpl<MicropostRecord> implem
      */
     @Override
     public Field<String> field4() {
-        return Micropost.MICROPOST.USER_ID;
+        return Micropost.MICROPOST.USER_NICKNAME;
     }
 
     /**
@@ -161,7 +161,7 @@ public class MicropostRecord extends UpdatableRecordImpl<MicropostRecord> implem
      */
     @Override
     public Integer component1() {
-        return getId();
+        return getPostId();
     }
 
     /**
@@ -185,7 +185,7 @@ public class MicropostRecord extends UpdatableRecordImpl<MicropostRecord> implem
      */
     @Override
     public String component4() {
-        return getUserId();
+        return getUserNickname();
     }
 
     /**
@@ -193,7 +193,7 @@ public class MicropostRecord extends UpdatableRecordImpl<MicropostRecord> implem
      */
     @Override
     public Integer value1() {
-        return getId();
+        return getPostId();
     }
 
     /**
@@ -217,7 +217,7 @@ public class MicropostRecord extends UpdatableRecordImpl<MicropostRecord> implem
      */
     @Override
     public String value4() {
-        return getUserId();
+        return getUserNickname();
     }
 
     /**
@@ -225,7 +225,7 @@ public class MicropostRecord extends UpdatableRecordImpl<MicropostRecord> implem
      */
     @Override
     public MicropostRecord value1(Integer value) {
-        setId(value);
+        setPostId(value);
         return this;
     }
 
@@ -252,7 +252,7 @@ public class MicropostRecord extends UpdatableRecordImpl<MicropostRecord> implem
      */
     @Override
     public MicropostRecord value4(String value) {
-        setUserId(value);
+        setUserNickname(value);
         return this;
     }
 
@@ -282,12 +282,12 @@ public class MicropostRecord extends UpdatableRecordImpl<MicropostRecord> implem
     /**
      * Create a detached, initialised MicropostRecord
      */
-    public MicropostRecord(Integer id, String content, OffsetDateTime createdAt, String userId) {
+    public MicropostRecord(Integer postId, String content, OffsetDateTime createdAt, String userNickname) {
         super(Micropost.MICROPOST);
 
-        set(0, id);
+        set(0, postId);
         set(1, content);
         set(2, createdAt);
-        set(3, userId);
+        set(3, userNickname);
     }
 }

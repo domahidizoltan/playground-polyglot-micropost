@@ -28,7 +28,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PostStatisticsRecord extends UpdatableRecordImpl<PostStatisticsRecord> implements Record4<Integer, Integer, Object, Integer> {
 
-    private static final long serialVersionUID = -802172705;
+    private static final long serialVersionUID = -417289799;
 
     /**
      * Setter for <code>public.post_statistics.id</code>.
@@ -78,17 +78,17 @@ public class PostStatisticsRecord extends UpdatableRecordImpl<PostStatisticsReco
     }
 
     /**
-     * Setter for <code>public.post_statistics.micropost_id</code>.
+     * Setter for <code>public.post_statistics.post_id</code>.
      */
-    public PostStatisticsRecord setMicropostId(Integer value) {
+    public PostStatisticsRecord setPostId(Integer value) {
         set(3, value);
         return this;
     }
 
     /**
-     * Getter for <code>public.post_statistics.micropost_id</code>.
+     * Getter for <code>public.post_statistics.post_id</code>.
      */
-    public Integer getMicropostId() {
+    public Integer getPostId() {
         return (Integer) get(3);
     }
 
@@ -154,7 +154,7 @@ public class PostStatisticsRecord extends UpdatableRecordImpl<PostStatisticsReco
      */
     @Override
     public Field<Integer> field4() {
-        return PostStatistics.POST_STATISTICS.MICROPOST_ID;
+        return PostStatistics.POST_STATISTICS.POST_ID;
     }
 
     /**
@@ -187,7 +187,7 @@ public class PostStatisticsRecord extends UpdatableRecordImpl<PostStatisticsReco
      */
     @Override
     public Integer component4() {
-        return getMicropostId();
+        return getPostId();
     }
 
     /**
@@ -220,7 +220,7 @@ public class PostStatisticsRecord extends UpdatableRecordImpl<PostStatisticsReco
      */
     @Override
     public Integer value4() {
-        return getMicropostId();
+        return getPostId();
     }
 
     /**
@@ -256,7 +256,7 @@ public class PostStatisticsRecord extends UpdatableRecordImpl<PostStatisticsReco
      */
     @Override
     public PostStatisticsRecord value4(Integer value) {
-        setMicropostId(value);
+        setPostId(value);
         return this;
     }
 
@@ -286,12 +286,12 @@ public class PostStatisticsRecord extends UpdatableRecordImpl<PostStatisticsReco
     /**
      * Create a detached, initialised PostStatisticsRecord
      */
-    public PostStatisticsRecord(Integer id, Integer words, Object wordCounts, Integer micropostId) {
+    public PostStatisticsRecord(Integer id, Integer words, Object wordCounts, Integer postId) {
         super(PostStatistics.POST_STATISTICS);
 
         set(0, id);
         set(1, words);
         set(2, wordCounts);
-        set(3, micropostId);
+        set(3, postId);
     }
 }

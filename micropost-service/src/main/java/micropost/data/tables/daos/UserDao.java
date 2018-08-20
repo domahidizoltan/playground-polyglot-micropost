@@ -47,21 +47,21 @@ public class UserDao extends DAOImpl<UserRecord, micropost.data.tables.pojos.Use
      */
     @Override
     protected String getId(micropost.data.tables.pojos.User object) {
-        return object.getId();
+        return object.getNickname();
     }
 
     /**
-     * Fetch records that have <code>id IN (values)</code>
+     * Fetch records that have <code>nickname IN (values)</code>
      */
-    public List<micropost.data.tables.pojos.User> fetchById(String... values) {
-        return fetch(User.USER.ID, values);
+    public List<micropost.data.tables.pojos.User> fetchByNickname(String... values) {
+        return fetch(User.USER.NICKNAME, values);
     }
 
     /**
-     * Fetch a unique record that has <code>id = value</code>
+     * Fetch a unique record that has <code>nickname = value</code>
      */
-    public micropost.data.tables.pojos.User fetchOneById(String value) {
-        return fetchOne(User.USER.ID, value);
+    public micropost.data.tables.pojos.User fetchOneByNickname(String value) {
+        return fetchOne(User.USER.NICKNAME, value);
     }
 
     /**

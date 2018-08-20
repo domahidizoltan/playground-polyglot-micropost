@@ -6,22 +6,22 @@ CREATE SEQUENCE micropost_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 922337203685477
 
 DROP TABLE IF EXISTS "user";
 CREATE TABLE "public"."user" (
-    "id" character varying(32) NOT NULL,
+    "nickname" character varying(32) NOT NULL,
     "email" character varying(256) NOT NULL,
     "first_name" character varying(256),
     "last_name" character varying(256),
     CONSTRAINT "user_email" UNIQUE ("email"),
-    CONSTRAINT "user_id" PRIMARY KEY ("id")
+    CONSTRAINT "user_nickname" PRIMARY KEY ("nickname")
 ) WITH (oids = false);
 
-
+DROP TABLE IF EXISTS "micropost";
 CREATE TABLE "public"."micropost" (
-    "id" integer DEFAULT nextval('micropost_id_seq') NOT NULL,
+    "post_id" integer DEFAULT nextval('micropost_id_seq') NOT NULL,
     "content" text NOT NULL,
     "created_at" timestamp with time zone NOT NULL,
-    "user_id" character varying(32) NOT NULL,
-    CONSTRAINT "micropost_id" PRIMARY KEY ("id"),
-    CONSTRAINT "micropost_user_id_fkey" FOREIGN KEY (user_id) REFERENCES "user"(id) ON UPDATE CASCADE ON DELETE CASCADE NOT DEFERRABLE
+    "user_nickname" character varying(32) NOT NULL,
+    CONSTRAINT "micropost_id" PRIMARY KEY ("post_id"),
+    CONSTRAINT "micropost_user_nickname_fkey" FOREIGN KEY (user_nickname) REFERENCES "user"(nickname) ON UPDATE CASCADE ON DELETE CASCADE NOT DEFERRABLE
 ) WITH (oids = false);
 
 
@@ -33,9 +33,9 @@ CREATE TABLE "public"."post_statistics" (
     "id" integer DEFAULT nextval('post_statistics_id_seq') NOT NULL,
     "words" integer NOT NULL,
     "word_counts" json NOT NULL,
-    "micropost_id" integer NOT NULL,
+    "post_id" integer NOT NULL,
     CONSTRAINT "post_statistics_id" PRIMARY KEY ("id"),
-    CONSTRAINT "post_statistics_micropost_id_fkey" FOREIGN KEY (micropost_id) REFERENCES micropost(id) ON DELETE CASCADE NOT DEFERRABLE
+    CONSTRAINT "post_statistics_post_id_fkey" FOREIGN KEY (post_id) REFERENCES micropost(post_id) ON DELETE CASCADE NOT DEFERRABLE
 ) WITH (oids = false);
 
 -- 2018-06-23 06:53:55.806767+00

@@ -22,34 +22,34 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User implements Serializable {
 
-    private static final long serialVersionUID = -1071479455;
+    private static final long serialVersionUID = 755073268;
 
-    private final String id;
+    private final String nickname;
     private final String email;
     private final String firstName;
     private final String lastName;
 
     public User(User value) {
-        this.id = value.id;
+        this.nickname = value.nickname;
         this.email = value.email;
         this.firstName = value.firstName;
         this.lastName = value.lastName;
     }
 
     public User(
-        String id,
+        String nickname,
         String email,
         String firstName,
         String lastName
     ) {
-        this.id = id;
+        this.nickname = nickname;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public String getId() {
-        return this.id;
+    public String getNickname() {
+        return this.nickname;
     }
 
     public String getEmail() {
@@ -68,7 +68,7 @@ public class User implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder("User (");
 
-        sb.append(id);
+        sb.append(nickname);
         sb.append(", ").append(email);
         sb.append(", ").append(firstName);
         sb.append(", ").append(lastName);

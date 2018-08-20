@@ -3,65 +3,132 @@ package micropost.controller
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.*
+import micropost.core.HalBuilder
 import micropost.core.paginate
 import micropost.core.validateRequest
-import micropost.data.dto.MicropostDto
-import micropost.data.mapper.toDto
+import micropost.data.transport.MicropostResource
+import micropost.data.transport.MicropostResourceList
+import micropost.data.mapper.toResource
 import micropost.data.mapper.toEntity
-import micropost.data.tables.Micropost
+import micropost.data.tables.Micropost.*
 import micropost.data.tables.daos.MicropostDao
+import micropost.data.transport.PagingResource
 import org.jooq.DSLContext
 import java.time.Instant
 import javax.annotation.Nullable
 import javax.validation.Validator
 
-@Controller("/posts")
+const val POSTS_PATH = "/posts"
+
+@Controller(POSTS_PATH)
 class MicropostsController(private val micropostDao: MicropostDao,
                            private val jooq: DSLContext,
                            private val validator: Validator) {
 
+    private val hal = HalBuilder.forPath(POSTS_PATH)
+    private val readLink = { postId:Int -> hal.buildLink("read", "/{postId}", postId) }
+    private val createLink = { hal.buildLink("create", "/") }
+    private val updateLink = { postId:Int -> hal.buildLink("update", "/{postId}", postId) }
+    private val deleteLink = { postId:Int -> hal.buildLink("delete", "/{postId}", postId) }
+
+    private val userHal = HalBuilder.forPath(USERS_PATH)
+    private val userLink = { nickname:String -> userHal.buildLink("user", "/{nickname}", nickname) }
+
     @Get("/")
     fun getAll(@Nullable @QueryValue("page") page: Int?,
-               @Nullable @QueryValue("size") size: Int?): List<MicropostDto> =
-            jooq.selectFrom(Micropost.MICROPOST)
-                    .paginate(page, size)
-                    .fetchInto(MicropostDto::class.java)
+               @Nullable @QueryValue("size") size: Int?): HttpResponse<MicropostResourceList> {
+        val resources = jooq.selectFrom(MICROPOST)
+                .paginate(page, size)
+                .fetchInto(MicropostResource::class.java)
 
-    @Get("/{id}")
-    fun getOne(id: Int): HttpResponse<MicropostDto> {
-        val dto = micropostDao.findById(id)?.toDto() ?: return HttpResponse.notFound()
-        return HttpResponse.ok(dto)
+        resources.forEach {
+            with(resources) {
+                it.add(readLink(it.postId!!))
+                it.add(userLink(it.userNickname!!))
+            }
+        }
+
+        val total = jooq.fetchCount(MICROPOST)
+        val paging = PagingResource(page, size, total, "$POSTS_PATH/")
+        val resourceList = MicropostResourceList(resources, paging)
+        resourceList.add(createLink())
+
+        return HttpResponse.ok(resourceList)
+    }
+
+    @Get("/{postId}")
+    fun getOne(postId: Int): HttpResponse<MicropostResource> {
+        val resource = micropostDao.findById(postId)?.toResource() ?: return HttpResponse.notFound()
+
+        with(resource) {
+            add(updateLink(postId))
+            add(deleteLink(postId))
+            add(userLink(resource.userNickname!!))
+        }
+        return HttpResponse.ok(resource)
     }
 
     @Post("/")
-    fun save(@Body post: MicropostDto): HttpStatus {
+    fun save(@Body post: MicropostResource): HttpResponse<MicropostResource> {
         validator.validateRequest(post)
         post.createdAt = Instant.now().toString()
-        micropostDao.insert(post.toEntity())
-        return HttpStatus.CREATED
+        val entity = post.toEntity()
+        val postId = jooq.insertInto(MICROPOST)
+                .columns(MICROPOST.CONTENT, MICROPOST.CREATED_AT, MICROPOST.USER_NICKNAME)
+                .values(entity.content, entity.createdAt, entity.userNickname)
+                .returning(MICROPOST.POST_ID)
+                .fetchOne()
+                .postId
+
+        val resource = MicropostResource()
+        with(resource) {
+            add(readLink(postId))
+            add(updateLink(postId))
+            add(deleteLink(postId))
+        }
+        return HttpResponse.created(resource)
     }
 
-    @Put("/{id}")
-    fun update(id: Int, @Body post: MicropostDto): HttpStatus {
+    @Put("/{postId}")
+    fun update(postId: Int, @Body post: MicropostResource): HttpResponse<MicropostResource> {
         validator.validateRequest(post)
-        val thatPost = micropostDao.findById(id) ?: return HttpStatus.NOT_FOUND
-        jooq.newRecord(Micropost.MICROPOST, thatPost).let {
+        val thatPost = micropostDao.findById(postId) ?: return HttpResponse.notFound()
+        jooq.newRecord(MICROPOST, thatPost).let {
             it.content = post.content
             it.update()
         }
 
-        return HttpStatus.OK
+        val resource = MicropostResource()
+        resource.add(deleteLink(postId))
+        return HttpResponse.ok(resource)
     }
 
-    @Delete("/{id}")
-    fun delete(id: Int): HttpStatus {
-        micropostDao.deleteById(id)
+    @Delete("/{postId}")
+    fun delete(postId: Int): HttpStatus {
+        micropostDao.deleteById(postId)
         return HttpStatus.NO_CONTENT
     }
 
-    @Get("/user/{id}")
-    fun getPosts(id: String): List<MicropostDto> = micropostDao.fetchByUserId(id)
-            .map { it.toDto() }
-            .toCollection(ArrayList())
+    @Get("/user/{nickname}")
+    fun getPosts(nickname: String,
+                 @Nullable @QueryValue("page") page: Int?,
+                 @Nullable @QueryValue("size") size: Int?): HttpResponse<MicropostResourceList> {
+        val query = jooq.selectFrom(MICROPOST)
+                .where(MICROPOST.USER_NICKNAME.eq(nickname))
+        val resources = query.paginate(page, size)
+                .fetchInto(MicropostResource::class.java)
+
+        resources.forEach{ it.add(readLink(it.postId!!)) }
+
+        val total = jooq.fetchCount(query)
+        val paging = PagingResource(page, size, total, "/users/$nickname")
+        val resourceList = MicropostResourceList(resources, paging)
+        with(resourceList) {
+            add(userLink(nickname))
+        }
+
+
+        return HttpResponse.ok(resourceList)
+    }
 
 }

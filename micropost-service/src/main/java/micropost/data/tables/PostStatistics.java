@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PostStatistics extends TableImpl<PostStatisticsRecord> {
 
-    private static final long serialVersionUID = -1777045585;
+    private static final long serialVersionUID = 989605361;
 
     /**
      * The reference instance of <code>public.post_statistics</code>
@@ -72,9 +72,9 @@ public class PostStatistics extends TableImpl<PostStatisticsRecord> {
     public final TableField<PostStatisticsRecord, Object> WORD_COUNTS = createField("word_counts", org.jooq.impl.SQLDataType.OTHER.nullable(false), this, "");
 
     /**
-     * The column <code>public.post_statistics.micropost_id</code>.
+     * The column <code>public.post_statistics.post_id</code>.
      */
-    public final TableField<PostStatisticsRecord, Integer> MICROPOST_ID = createField("micropost_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<PostStatisticsRecord, Integer> POST_ID = createField("post_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * Create a <code>public.post_statistics</code> table reference
@@ -150,7 +150,7 @@ public class PostStatistics extends TableImpl<PostStatisticsRecord> {
      */
     @Override
     public List<ForeignKey<PostStatisticsRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<PostStatisticsRecord, ?>>asList(Keys.POST_STATISTICS__POST_STATISTICS_MICROPOST_ID_FKEY);
+        return Arrays.<ForeignKey<PostStatisticsRecord, ?>>asList(Keys.POST_STATISTICS__POST_STATISTICS_POST_ID_FKEY);
     }
 
     /**

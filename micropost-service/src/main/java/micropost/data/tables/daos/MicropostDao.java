@@ -48,21 +48,21 @@ public class MicropostDao extends DAOImpl<MicropostRecord, micropost.data.tables
      */
     @Override
     protected Integer getId(micropost.data.tables.pojos.Micropost object) {
-        return object.getId();
+        return object.getPostId();
     }
 
     /**
-     * Fetch records that have <code>id IN (values)</code>
+     * Fetch records that have <code>post_id IN (values)</code>
      */
-    public List<micropost.data.tables.pojos.Micropost> fetchById(Integer... values) {
-        return fetch(Micropost.MICROPOST.ID, values);
+    public List<micropost.data.tables.pojos.Micropost> fetchByPostId(Integer... values) {
+        return fetch(Micropost.MICROPOST.POST_ID, values);
     }
 
     /**
-     * Fetch a unique record that has <code>id = value</code>
+     * Fetch a unique record that has <code>post_id = value</code>
      */
-    public micropost.data.tables.pojos.Micropost fetchOneById(Integer value) {
-        return fetchOne(Micropost.MICROPOST.ID, value);
+    public micropost.data.tables.pojos.Micropost fetchOneByPostId(Integer value) {
+        return fetchOne(Micropost.MICROPOST.POST_ID, value);
     }
 
     /**
@@ -80,9 +80,9 @@ public class MicropostDao extends DAOImpl<MicropostRecord, micropost.data.tables
     }
 
     /**
-     * Fetch records that have <code>user_id IN (values)</code>
+     * Fetch records that have <code>user_nickname IN (values)</code>
      */
-    public List<micropost.data.tables.pojos.Micropost> fetchByUserId(String... values) {
-        return fetch(Micropost.MICROPOST.USER_ID, values);
+    public List<micropost.data.tables.pojos.Micropost> fetchByUserNickname(String... values) {
+        return fetch(Micropost.MICROPOST.USER_NICKNAME, values);
     }
 }

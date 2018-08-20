@@ -23,34 +23,34 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Micropost implements Serializable {
 
-    private static final long serialVersionUID = 990462167;
+    private static final long serialVersionUID = -1509770576;
 
-    private final Integer        id;
+    private final Integer        postId;
     private final String         content;
     private final OffsetDateTime createdAt;
-    private final String         userId;
+    private final String         userNickname;
 
     public Micropost(Micropost value) {
-        this.id = value.id;
+        this.postId = value.postId;
         this.content = value.content;
         this.createdAt = value.createdAt;
-        this.userId = value.userId;
+        this.userNickname = value.userNickname;
     }
 
     public Micropost(
-        Integer        id,
+        Integer        postId,
         String         content,
         OffsetDateTime createdAt,
-        String         userId
+        String         userNickname
     ) {
-        this.id = id;
+        this.postId = postId;
         this.content = content;
         this.createdAt = createdAt;
-        this.userId = userId;
+        this.userNickname = userNickname;
     }
 
-    public Integer getId() {
-        return this.id;
+    public Integer getPostId() {
+        return this.postId;
     }
 
     public String getContent() {
@@ -61,18 +61,18 @@ public class Micropost implements Serializable {
         return this.createdAt;
     }
 
-    public String getUserId() {
-        return this.userId;
+    public String getUserNickname() {
+        return this.userNickname;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Micropost (");
 
-        sb.append(id);
+        sb.append(postId);
         sb.append(", ").append(content);
         sb.append(", ").append(createdAt);
-        sb.append(", ").append(userId);
+        sb.append(", ").append(userNickname);
 
         sb.append(")");
         return sb.toString();

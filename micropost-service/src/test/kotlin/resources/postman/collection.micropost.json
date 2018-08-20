@@ -17,10 +17,7 @@
 						"url": "{{host}}{{servicePort}}/users",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"description": ""
 					},
 					"response": []
@@ -28,7 +25,7 @@
 				{
 					"name": "getUserById",
 					"request": {
-						"url": "{{host}}{{servicePort}}/users/id",
+						"url": "{{host}}{{servicePort}}/users/nickname",
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -50,7 +47,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": \"id\",\n\t\"email\": \"email\",\n\t\"firstName\": \"firstName\",\n\t\"lastName\": \"lastName\"\n}"
+							"raw": "{\n\t\"nickname\": \"nickname\",\n\t\"email\": \"email@address.com\",\n\t\"firstName\": \"firstName\",\n\t\"lastName\": \"lastName\"\n}"
 						},
 						"description": ""
 					},
@@ -59,7 +56,7 @@
 				{
 					"name": "updateUser",
 					"request": {
-						"url": "{{host}}{{servicePort}}/users/id",
+						"url": "{{host}}{{servicePort}}/users/nickname",
 						"method": "PUT",
 						"header": [
 							{
@@ -70,7 +67,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"email\",\n\t\"firstName\": \"firstName\",\n\t\"lastName\": \"lastName\"\n}"
+							"raw": "{\n\t\"email\": \"email@address.com\",\n\t\"firstName\": \"firstName\",\n\t\"lastName\": \"lastName\"\n}"
 						},
 						"description": ""
 					},
@@ -79,7 +76,7 @@
 				{
 					"name": "deleteUser",
 					"request": {
-						"url": "{{host}}{{servicePort}}/users/id",
+						"url": "{{host}}{{servicePort}}/users/nickname",
 						"method": "DELETE",
 						"header": [
 							{
@@ -118,7 +115,7 @@
 				{
 					"name": "getUsersPosts",
 					"request": {
-						"url": "{{host}}{{servicePort}}/posts/user/id",
+						"url": "{{host}}{{servicePort}}/posts/user/nickname",
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -140,7 +137,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"content\": \"content\",\n\t\"userId\": \"id\"\n}"
+							"raw": "{\n\t\"content\": \"content\",\n\t\"userNickname\": \"nickname\"\n}"
 						},
 						"description": ""
 					},
@@ -160,7 +157,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"content\": \"content\"\n}"
+							"raw": "{\n\t\"content\": \"c\"\n}"
 						},
 						"description": ""
 					},

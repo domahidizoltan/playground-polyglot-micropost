@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Micropost extends TableImpl<MicropostRecord> {
 
-    private static final long serialVersionUID = -414681291;
+    private static final long serialVersionUID = -1385017906;
 
     /**
      * The reference instance of <code>public.micropost</code>
@@ -57,9 +57,9 @@ public class Micropost extends TableImpl<MicropostRecord> {
     }
 
     /**
-     * The column <code>public.micropost.id</code>.
+     * The column <code>public.micropost.post_id</code>.
      */
-    public final TableField<MicropostRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('micropost_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<MicropostRecord, Integer> POST_ID = createField("post_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('micropost_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>public.micropost.content</code>.
@@ -72,9 +72,9 @@ public class Micropost extends TableImpl<MicropostRecord> {
     public final TableField<MicropostRecord, OffsetDateTime> CREATED_AT = createField("created_at", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.nullable(false), this, "");
 
     /**
-     * The column <code>public.micropost.user_id</code>.
+     * The column <code>public.micropost.user_nickname</code>.
      */
-    public final TableField<MicropostRecord, String> USER_ID = createField("user_id", org.jooq.impl.SQLDataType.VARCHAR(32).nullable(false), this, "");
+    public final TableField<MicropostRecord, String> USER_NICKNAME = createField("user_nickname", org.jooq.impl.SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
      * Create a <code>public.micropost</code> table reference
@@ -150,7 +150,7 @@ public class Micropost extends TableImpl<MicropostRecord> {
      */
     @Override
     public List<ForeignKey<MicropostRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<MicropostRecord, ?>>asList(Keys.MICROPOST__MICROPOST_USER_ID_FKEY);
+        return Arrays.<ForeignKey<MicropostRecord, ?>>asList(Keys.MICROPOST__MICROPOST_USER_NICKNAME_FKEY);
     }
 
     /**
