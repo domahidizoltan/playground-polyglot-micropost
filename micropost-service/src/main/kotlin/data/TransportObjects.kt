@@ -18,6 +18,8 @@ data class PostStatisticsDto(val postId: Int = 0,
                              val words: Int = 0,
                              val wordCounts: Map<String, Int>? = null)
 
-data class UserResourceList(val resources: List<UserResource>, val paging: PagingResource) : ResourceSupport()
+data class UserResourceList(val resources: List<UserResource>,
+                            val paging: PagingResource) : ResourceSupport()
 
-data class MicropostResourceList(val resources: List<MicropostResource>, val paging: PagingResource) : ResourceSupport()
+data class MicropostResourceList(val resources: List<MicropostResource>,
+                                 val paging: PagingResource) : ResourceSupport()

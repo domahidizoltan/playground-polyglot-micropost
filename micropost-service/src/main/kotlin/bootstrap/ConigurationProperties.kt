@@ -1,4 +1,4 @@
-package micropost.configuration.properties
+package micropost.bootstrap.properties
 
 import io.micronaut.context.annotation.ConfigurationProperties
 import javax.validation.constraints.NotBlank

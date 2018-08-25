@@ -27,7 +27,7 @@ class MicropostsController(private val micropostDao: MicropostDao,
 
     private val hal = HalBuilder.forPath(POSTS_PATH)
     private val readLink = { postId:Int -> hal.buildLink("read", "/{postId}", postId) }
-    private val createLink = { hal.buildLink("create", "/") }
+    private val createLink = { hal.buildLink("create", "") }
     private val updateLink = { postId:Int -> hal.buildLink("update", "/{postId}", postId) }
     private val deleteLink = { postId:Int -> hal.buildLink("delete", "/{postId}", postId) }
 

@@ -1,10 +1,10 @@
-package micropost.configuration
+package micropost.bootstrap
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Factory
-import micropost.configuration.properties.DbConnectionProperties
+import micropost.bootstrap.properties.DbConnectionProperties
 import micropost.data.tables.daos.MicropostDao
 import micropost.data.tables.daos.UserDao
 import org.jooq.DSLContext

@@ -24,7 +24,7 @@ class UsersController(private val userDao: UserDao,
 
     private val hal = HalBuilder.forPath(USERS_PATH)
     private val readLink = { nickname:String -> hal.buildLink("read", "/{nickname}", nickname) }
-    private val createLink = { hal.buildLink("create", "/") }
+    private val createLink = { hal.buildLink("create", "") }
     private val updateLink = { nickname:String -> hal.buildLink("update", "/{nickname}", nickname) }
     private val deleteLink = { nickname:String -> hal.buildLink("delete", "/{nickname}", nickname) }
 
