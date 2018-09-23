@@ -33,13 +33,14 @@ type processorTemplate interface {
 	receiveMessage(result *Result)
 }
 
-type processor struct {
+//Processor type for statistic processors
+type Processor struct {
 	processors []processorTemplate
 }
 
 //NewProcessor factory for processor
-func NewProcessor() *processor {
-	return &processor{
+func NewProcessor() *Processor {
+	return &Processor{
 		processors: []processorTemplate{
 			newIntStatisticProcessor(),
 			newMapStatisticProcessor(),
@@ -47,7 +48,7 @@ func NewProcessor() *processor {
 	}
 }
 
-func (it *processor) Process(text string) *Result {
+func (it *Processor) Process(text string) *Result {
 	result := new(Result)
 	resultChannel := make(chan *Result)
 	processorSize := len(it.processors)
