@@ -1,5 +1,6 @@
 package micropost.bootstrap
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.micronaut.context.annotation.Bean
@@ -62,7 +63,8 @@ class DataConfiguration {
 class ServiceConfiguration {
 
     @Singleton @Bean
-    fun postStatisticsResponseObserver(): PostStatisticsResponseObserver = PostStatisticsResponseObserver()
+    fun postStatisticsResponseObserver(jooqDsl: DSLContext, objectMapper: ObjectMapper): PostStatisticsResponseObserver =
+            PostStatisticsResponseObserver(jooqDsl, objectMapper)
 
     @Singleton @Bean
     fun postStatisticsClient(observer: PostStatisticsResponseObserver): PostStatisticsClient =
