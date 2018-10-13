@@ -16,7 +16,6 @@ import micropost.data.tables.records.PostStatisticsRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
@@ -40,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PostStatistics extends TableImpl<PostStatisticsRecord> {
 
-    private static final long serialVersionUID = 989605361;
+    private static final long serialVersionUID = 73479562;
 
     /**
      * The reference instance of <code>public.post_statistics</code>
@@ -56,25 +55,29 @@ public class PostStatistics extends TableImpl<PostStatisticsRecord> {
     }
 
     /**
-     * The column <code>public.post_statistics.id</code>.
-     */
-    public final TableField<PostStatisticsRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('post_statistics_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
-
-    /**
-     * The column <code>public.post_statistics.words</code>.
-     */
-    public final TableField<PostStatisticsRecord, Integer> WORDS = createField("words", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
-
-    /**
-     * @deprecated Unknown data type. Please define an explicit {@link org.jooq.Binding} to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.
-     */
-    @java.lang.Deprecated
-    public final TableField<PostStatisticsRecord, Object> WORD_COUNTS = createField("word_counts", org.jooq.impl.SQLDataType.OTHER.nullable(false), this, "");
-
-    /**
      * The column <code>public.post_statistics.post_id</code>.
      */
     public final TableField<PostStatisticsRecord, Integer> POST_ID = createField("post_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+
+    /**
+     * The column <code>public.post_statistics.total_words</code>.
+     */
+    public final TableField<PostStatisticsRecord, Integer> TOTAL_WORDS = createField("total_words", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+
+    /**
+     * The column <code>public.post_statistics.alphanumeric</code>.
+     */
+    public final TableField<PostStatisticsRecord, Integer> ALPHANUMERIC = createField("alphanumeric", org.jooq.impl.SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.post_statistics.non_alphanumeric</code>.
+     */
+    public final TableField<PostStatisticsRecord, Integer> NON_ALPHANUMERIC = createField("non_alphanumeric", org.jooq.impl.SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.post_statistics.word_occurrence</code>.
+     */
+    public final TableField<PostStatisticsRecord, String> WORD_OCCURRENCE = createField("word_occurrence", org.jooq.impl.SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
      * Create a <code>public.post_statistics</code> table reference
@@ -118,23 +121,7 @@ public class PostStatistics extends TableImpl<PostStatisticsRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.POST_STATISTICS_ID);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<PostStatisticsRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_POST_STATISTICS;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public UniqueKey<PostStatisticsRecord> getPrimaryKey() {
-        return Keys.POST_STATISTICS_ID;
+        return Arrays.<Index>asList(Indexes.POST_STATISTICS_POST_ID_KEY);
     }
 
     /**
@@ -142,7 +129,7 @@ public class PostStatistics extends TableImpl<PostStatisticsRecord> {
      */
     @Override
     public List<UniqueKey<PostStatisticsRecord>> getKeys() {
-        return Arrays.<UniqueKey<PostStatisticsRecord>>asList(Keys.POST_STATISTICS_ID);
+        return Arrays.<UniqueKey<PostStatisticsRecord>>asList(Keys.POST_STATISTICS_POST_ID_KEY);
     }
 
     /**

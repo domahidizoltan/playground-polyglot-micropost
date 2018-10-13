@@ -22,61 +22,65 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PostStatistics implements Serializable {
 
-    private static final long serialVersionUID = 1630451305;
+    private static final long serialVersionUID = -884775165;
 
-    private final Integer id;
-    private final Integer words;
-    private final Object  wordCounts;
     private final Integer postId;
+    private final Integer totalWords;
+    private final Integer alphanumeric;
+    private final Integer nonAlphanumeric;
+    private final String  wordOccurrence;
 
     public PostStatistics(PostStatistics value) {
-        this.id = value.id;
-        this.words = value.words;
-        this.wordCounts = value.wordCounts;
         this.postId = value.postId;
+        this.totalWords = value.totalWords;
+        this.alphanumeric = value.alphanumeric;
+        this.nonAlphanumeric = value.nonAlphanumeric;
+        this.wordOccurrence = value.wordOccurrence;
     }
 
     public PostStatistics(
-        Integer id,
-        Integer words,
-        Object  wordCounts,
-        Integer postId
+        Integer postId,
+        Integer totalWords,
+        Integer alphanumeric,
+        Integer nonAlphanumeric,
+        String  wordOccurrence
     ) {
-        this.id = id;
-        this.words = words;
-        this.wordCounts = wordCounts;
         this.postId = postId;
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-
-    public Integer getWords() {
-        return this.words;
-    }
-
-
-    /**
-     * @deprecated Unknown data type. Please define an explicit {@link org.jooq.Binding} to specify how this type should be handled. Deprecation can be turned off using <deprecationOnUnknownTypes/> in your code generator configuration.
-     */
-    @java.lang.Deprecated
-    public Object getWordCounts() {
-        return this.wordCounts;
+        this.totalWords = totalWords;
+        this.alphanumeric = alphanumeric;
+        this.nonAlphanumeric = nonAlphanumeric;
+        this.wordOccurrence = wordOccurrence;
     }
 
     public Integer getPostId() {
         return this.postId;
     }
 
+    public Integer getTotalWords() {
+        return this.totalWords;
+    }
+
+    public Integer getAlphanumeric() {
+        return this.alphanumeric;
+    }
+
+    public Integer getNonAlphanumeric() {
+        return this.nonAlphanumeric;
+    }
+
+    public String getWordOccurrence() {
+        return this.wordOccurrence;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("PostStatistics (");
 
-        sb.append(id);
-        sb.append(", ").append(words);
-        sb.append(", ").append(wordCounts);
-        sb.append(", ").append(postId);
+        sb.append(postId);
+        sb.append(", ").append(totalWords);
+        sb.append(", ").append(alphanumeric);
+        sb.append(", ").append(nonAlphanumeric);
+        sb.append(", ").append(wordOccurrence);
 
         sb.append(")");
         return sb.toString();

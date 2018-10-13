@@ -23,34 +23,38 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Micropost implements Serializable {
 
-    private static final long serialVersionUID = -1509770576;
+    private static final long serialVersionUID = 968204922;
 
     private final Integer        postId;
+    private final String         userNickname;
     private final String         content;
     private final OffsetDateTime createdAt;
-    private final String         userNickname;
 
     public Micropost(Micropost value) {
         this.postId = value.postId;
+        this.userNickname = value.userNickname;
         this.content = value.content;
         this.createdAt = value.createdAt;
-        this.userNickname = value.userNickname;
     }
 
     public Micropost(
         Integer        postId,
+        String         userNickname,
         String         content,
-        OffsetDateTime createdAt,
-        String         userNickname
+        OffsetDateTime createdAt
     ) {
         this.postId = postId;
+        this.userNickname = userNickname;
         this.content = content;
         this.createdAt = createdAt;
-        this.userNickname = userNickname;
     }
 
     public Integer getPostId() {
         return this.postId;
+    }
+
+    public String getUserNickname() {
+        return this.userNickname;
     }
 
     public String getContent() {
@@ -61,18 +65,14 @@ public class Micropost implements Serializable {
         return this.createdAt;
     }
 
-    public String getUserNickname() {
-        return this.userNickname;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Micropost (");
 
         sb.append(postId);
+        sb.append(", ").append(userNickname);
         sb.append(", ").append(content);
         sb.append(", ").append(createdAt);
-        sb.append(", ").append(userNickname);
 
         sb.append(")");
         return sb.toString();

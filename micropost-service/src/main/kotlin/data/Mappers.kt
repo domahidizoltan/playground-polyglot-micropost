@@ -39,7 +39,7 @@ fun Micropost.toResource(): MicropostResource {
 
 fun MicropostResource.toEntity(): Micropost {
     val zoneInstant = Instant.parse(createdAt)?.atZone(ZoneId.systemDefault())
-    return Micropost(null, content, OffsetDateTime.from(zoneInstant), userNickname)
+    return Micropost(null, userNickname, content, OffsetDateTime.from(zoneInstant))
 }
 
 

@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Micropost extends TableImpl<MicropostRecord> {
 
-    private static final long serialVersionUID = -1385017906;
+    private static final long serialVersionUID = -1876634290;
 
     /**
      * The reference instance of <code>public.micropost</code>
@@ -62,6 +62,11 @@ public class Micropost extends TableImpl<MicropostRecord> {
     public final TableField<MicropostRecord, Integer> POST_ID = createField("post_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('micropost_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
+     * The column <code>public.micropost.user_nickname</code>.
+     */
+    public final TableField<MicropostRecord, String> USER_NICKNAME = createField("user_nickname", org.jooq.impl.SQLDataType.VARCHAR(32).nullable(false), this, "");
+
+    /**
      * The column <code>public.micropost.content</code>.
      */
     public final TableField<MicropostRecord, String> CONTENT = createField("content", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
@@ -70,11 +75,6 @@ public class Micropost extends TableImpl<MicropostRecord> {
      * The column <code>public.micropost.created_at</code>.
      */
     public final TableField<MicropostRecord, OffsetDateTime> CREATED_AT = createField("created_at", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.nullable(false), this, "");
-
-    /**
-     * The column <code>public.micropost.user_nickname</code>.
-     */
-    public final TableField<MicropostRecord, String> USER_NICKNAME = createField("user_nickname", org.jooq.impl.SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
      * Create a <code>public.micropost</code> table reference

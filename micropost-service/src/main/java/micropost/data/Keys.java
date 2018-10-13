@@ -38,14 +38,13 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final Identity<MicropostRecord, Integer> IDENTITY_MICROPOST = Identities0.IDENTITY_MICROPOST;
-    public static final Identity<PostStatisticsRecord, Integer> IDENTITY_POST_STATISTICS = Identities0.IDENTITY_POST_STATISTICS;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<MicropostRecord> MICROPOST_ID = UniqueKeys0.MICROPOST_ID;
-    public static final UniqueKey<PostStatisticsRecord> POST_STATISTICS_ID = UniqueKeys0.POST_STATISTICS_ID;
+    public static final UniqueKey<PostStatisticsRecord> POST_STATISTICS_POST_ID_KEY = UniqueKeys0.POST_STATISTICS_POST_ID_KEY;
     public static final UniqueKey<UserRecord> USER_NICKNAME = UniqueKeys0.USER_NICKNAME;
     public static final UniqueKey<UserRecord> USER_EMAIL = UniqueKeys0.USER_EMAIL;
 
@@ -62,12 +61,11 @@ public class Keys {
 
     private static class Identities0 extends AbstractKeys {
         public static Identity<MicropostRecord, Integer> IDENTITY_MICROPOST = createIdentity(Micropost.MICROPOST, Micropost.MICROPOST.POST_ID);
-        public static Identity<PostStatisticsRecord, Integer> IDENTITY_POST_STATISTICS = createIdentity(PostStatistics.POST_STATISTICS, PostStatistics.POST_STATISTICS.ID);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
         public static final UniqueKey<MicropostRecord> MICROPOST_ID = createUniqueKey(Micropost.MICROPOST, "micropost_id", Micropost.MICROPOST.POST_ID);
-        public static final UniqueKey<PostStatisticsRecord> POST_STATISTICS_ID = createUniqueKey(PostStatistics.POST_STATISTICS, "post_statistics_id", PostStatistics.POST_STATISTICS.ID);
+        public static final UniqueKey<PostStatisticsRecord> POST_STATISTICS_POST_ID_KEY = createUniqueKey(PostStatistics.POST_STATISTICS, "post_statistics_post_id_key", PostStatistics.POST_STATISTICS.POST_ID);
         public static final UniqueKey<UserRecord> USER_NICKNAME = createUniqueKey(User.USER, "user_nickname", User.USER.NICKNAME);
         public static final UniqueKey<UserRecord> USER_EMAIL = createUniqueKey(User.USER, "user_email", User.USER.EMAIL);
     }

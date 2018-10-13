@@ -33,7 +33,7 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     public static final Index MICROPOST_ID = Indexes0.MICROPOST_ID;
-    public static final Index POST_STATISTICS_ID = Indexes0.POST_STATISTICS_ID;
+    public static final Index POST_STATISTICS_POST_ID_KEY = Indexes0.POST_STATISTICS_POST_ID_KEY;
     public static final Index USER_EMAIL = Indexes0.USER_EMAIL;
     public static final Index USER_NICKNAME = Indexes0.USER_NICKNAME;
 
@@ -43,7 +43,7 @@ public class Indexes {
 
     private static class Indexes0 extends AbstractKeys {
         public static Index MICROPOST_ID = createIndex("micropost_id", Micropost.MICROPOST, new OrderField[] { Micropost.MICROPOST.POST_ID }, true);
-        public static Index POST_STATISTICS_ID = createIndex("post_statistics_id", PostStatistics.POST_STATISTICS, new OrderField[] { PostStatistics.POST_STATISTICS.ID }, true);
+        public static Index POST_STATISTICS_POST_ID_KEY = createIndex("post_statistics_post_id_key", PostStatistics.POST_STATISTICS, new OrderField[] { PostStatistics.POST_STATISTICS.POST_ID }, true);
         public static Index USER_EMAIL = createIndex("user_email", User.USER, new OrderField[] { User.USER.EMAIL }, true);
         public static Index USER_NICKNAME = createIndex("user_nickname", User.USER, new OrderField[] { User.USER.NICKNAME }, true);
     }

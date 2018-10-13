@@ -66,6 +66,13 @@ public class MicropostDao extends DAOImpl<MicropostRecord, micropost.data.tables
     }
 
     /**
+     * Fetch records that have <code>user_nickname IN (values)</code>
+     */
+    public List<micropost.data.tables.pojos.Micropost> fetchByUserNickname(String... values) {
+        return fetch(Micropost.MICROPOST.USER_NICKNAME, values);
+    }
+
+    /**
      * Fetch records that have <code>content IN (values)</code>
      */
     public List<micropost.data.tables.pojos.Micropost> fetchByContent(String... values) {
@@ -77,12 +84,5 @@ public class MicropostDao extends DAOImpl<MicropostRecord, micropost.data.tables
      */
     public List<micropost.data.tables.pojos.Micropost> fetchByCreatedAt(OffsetDateTime... values) {
         return fetch(Micropost.MICROPOST.CREATED_AT, values);
-    }
-
-    /**
-     * Fetch records that have <code>user_nickname IN (values)</code>
-     */
-    public List<micropost.data.tables.pojos.Micropost> fetchByUserNickname(String... values) {
-        return fetch(Micropost.MICROPOST.USER_NICKNAME, values);
     }
 }
