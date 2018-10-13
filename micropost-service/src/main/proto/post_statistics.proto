@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_package = "micropost.proto";
+
+service PostStatistics {
+    rpc GeneratePostStatistics(PostStatisticsRequest) returns (PostStatisticsResponse) {}
+}
+
+message PostStatisticsRequest {
+    int32 postId = 1;
+    string content = 2;
+}
+
+message PostStatisticsResponse {
+    int32 postId = 1;
+    int32 alphanumeric = 2;
+    int32 nonAlphanumeric = 3;
+    int32 totalWords = 4;
+    map<string, int32> wordOccurrence = 5;
+}

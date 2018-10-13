@@ -13,6 +13,7 @@ import micropost.data.mapper.toEntity
 import micropost.data.tables.Micropost.*
 import micropost.data.tables.daos.MicropostDao
 import micropost.data.transport.PagingResource
+import micropost.service.PostStatisticsClient
 import org.jooq.DSLContext
 import java.time.Instant
 import javax.annotation.Nullable
@@ -23,7 +24,8 @@ const val POSTS_PATH = "/posts"
 @Controller(POSTS_PATH)
 class MicropostsController(private val micropostDao: MicropostDao,
                            private val jooq: DSLContext,
-                           private val validator: Validator) {
+                           private val validator: Validator,
+                           private val postStatisticsClient: PostStatisticsClient) {
 
     private val hal = HalBuilder.forPath(POSTS_PATH)
     private val readLink = { postId:Int -> hal.buildLink("read", "/{postId}", postId) }
@@ -80,12 +82,15 @@ class MicropostsController(private val micropostDao: MicropostDao,
                 .fetchOne()
                 .postId
 
+        postStatisticsClient.sendPostStatistics(postId, post.content!!)
+
         val resource = MicropostResource()
         with(resource) {
             add(readLink(postId))
             add(updateLink(postId))
             add(deleteLink(postId))
         }
+
         return HttpResponse.created(resource)
     }
 
@@ -97,6 +102,8 @@ class MicropostsController(private val micropostDao: MicropostDao,
             it.content = post.content
             it.update()
         }
+
+        postStatisticsClient.sendPostStatistics(postId, post.content!!)
 
         val resource = MicropostResource()
         resource.add(deleteLink(postId))

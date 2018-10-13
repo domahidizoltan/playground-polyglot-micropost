@@ -7,6 +7,8 @@ import io.micronaut.context.annotation.Factory
 import micropost.bootstrap.properties.DbConnectionProperties
 import micropost.data.tables.daos.MicropostDao
 import micropost.data.tables.daos.UserDao
+import micropost.service.PostStatisticsClient
+import micropost.service.PostStatisticsResponseObserver
 import org.jooq.DSLContext
 import org.jooq.SQLDialect
 import org.jooq.impl.DSL
@@ -20,8 +22,7 @@ import org.jooq.Configuration as JooqConfiguration
 @Factory
 class AppConfiguration {
 
-    @Bean
-    @Singleton
+    @Singleton @Bean
     fun datasource(db: DbConnectionProperties): DataSource {
         val config = HikariConfig()
         config.jdbcUrl = db.url
@@ -31,8 +32,7 @@ class AppConfiguration {
         return HikariDataSource(config)
     }
 
-    @Bean
-    @Singleton
+    @Singleton @Bean
     fun configuration(datasource: DataSource): JooqConfiguration {
         val config = DefaultConfiguration()
         config.setDataSource(datasource)
@@ -45,19 +45,27 @@ class AppConfiguration {
 @Factory
 class DataConfiguration {
 
-    @Bean
-    @Singleton
+    @Singleton @Bean
     fun userDao(configuration: JooqConfiguration): UserDao = UserDao(configuration)
 
-    @Bean
-    @Singleton
+    @Singleton @Bean
     fun micropostDao(configuration: JooqConfiguration): MicropostDao = MicropostDao(configuration)
 
-    @Bean
-    @Singleton
+    @Singleton @Bean
     fun jooqDsl(configuration: JooqConfiguration): DSLContext = DSL.using(configuration)
 
-    @Bean
-    @Singleton
+    @Singleton @Bean
     fun validator(): Validator = Validation.buildDefaultValidatorFactory().validator
+}
+
+@Factory
+class ServiceConfiguration {
+
+    @Singleton @Bean
+    fun postStatisticsResponseObserver(): PostStatisticsResponseObserver = PostStatisticsResponseObserver()
+
+    @Singleton @Bean
+    fun postStatisticsClient(observer: PostStatisticsResponseObserver): PostStatisticsClient =
+            PostStatisticsClient("localhost", 8030, observer)
+
 }
