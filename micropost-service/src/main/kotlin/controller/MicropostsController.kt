@@ -1,17 +1,19 @@
 package micropost.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.*
 import micropost.core.HalBuilder
 import micropost.core.paginate
 import micropost.core.validateRequest
+import micropost.data.Tables.POST_STATISTICS
+import micropost.data.mapper.toEntity
+import micropost.data.mapper.toResource
+import micropost.data.tables.Micropost.MICROPOST
+import micropost.data.tables.daos.MicropostDao
 import micropost.data.transport.MicropostResource
 import micropost.data.transport.MicropostResourceList
-import micropost.data.mapper.toResource
-import micropost.data.mapper.toEntity
-import micropost.data.tables.Micropost.*
-import micropost.data.tables.daos.MicropostDao
 import micropost.data.transport.PagingResource
 import micropost.service.PostStatisticsClient
 import org.jooq.DSLContext
@@ -25,7 +27,8 @@ const val POSTS_PATH = "/posts"
 class MicropostsController(private val micropostDao: MicropostDao,
                            private val jooq: DSLContext,
                            private val validator: Validator,
-                           private val postStatisticsClient: PostStatisticsClient) {
+                           private val postStatisticsClient: PostStatisticsClient,
+                           private val objectMapper: ObjectMapper) {
 
     private val hal = HalBuilder.forPath(POSTS_PATH)
     private val readLink = { postId:Int -> hal.buildLink("read", "/{postId}", postId) }
@@ -36,12 +39,15 @@ class MicropostsController(private val micropostDao: MicropostDao,
     private val userHal = HalBuilder.forPath(USERS_PATH)
     private val userLink = { nickname:String -> userHal.buildLink("user", "/{nickname}", nickname) }
 
+    private val joinPostWithStatistics = MICROPOST.join(POST_STATISTICS).on(POST_STATISTICS.POST_ID.eq(MICROPOST.POST_ID))
+
     @Get("/")
     fun getAll(@Nullable @QueryValue("page") page: Int?,
                @Nullable @QueryValue("size") size: Int?): HttpResponse<MicropostResourceList> {
-        val resources = jooq.selectFrom(MICROPOST)
+        val resources = jooq.selectFrom(joinPostWithStatistics)
                 .paginate(page, size)
-                .fetchInto(MicropostResource::class.java)
+                .fetch()
+                .map { it.toResource(objectMapper) }
 
         resources.forEach {
             with(resources) {
@@ -60,7 +66,11 @@ class MicropostsController(private val micropostDao: MicropostDao,
 
     @Get("/{postId}")
     fun getOne(postId: Int): HttpResponse<MicropostResource> {
-        val resource = micropostDao.findById(postId)?.toResource() ?: return HttpResponse.notFound()
+        val result = jooq.selectFrom(joinPostWithStatistics)
+                .where(MICROPOST.POST_ID.eq(postId))
+                .fetchOne()
+                ?: return HttpResponse.notFound()
+        val resource = result.toResource(objectMapper)
 
         with(resource) {
             add(updateLink(postId))

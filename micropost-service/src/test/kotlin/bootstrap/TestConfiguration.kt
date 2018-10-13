@@ -4,9 +4,11 @@ import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Factory
 import io.micronaut.context.annotation.Primary
 import micropost.data.Tables
-import micropost.data.tables.records.MicropostRecord
+import micropost.data.Tables.MICROPOST
+import micropost.data.Tables.POST_STATISTICS
 import micropost.data.tables.records.UserRecord
 import org.jooq.DSLContext
+import org.jooq.Record9
 import org.jooq.Result
 import org.jooq.SQLDialect
 import org.jooq.impl.DSL
@@ -22,9 +24,7 @@ import javax.inject.Singleton
 @Factory
 class TestDataConfiguration {
 
-    @Bean
-    @Singleton
-    @Primary
+    @Primary @Singleton @Bean
     fun jooqDsl(): DSLContext {
         val provider = TestDataProvider()
         val connection = MockConnection(provider)
@@ -61,11 +61,41 @@ class TestDataProvider : MockDataProvider {
         return usersResult
     }
 
-    private fun micropostsTestData(dsl: DSLContext): Result<MicropostRecord> {
-        val records = dsl.newRecord(Tables.MICROPOST)
-                .values(1, "test content", OffsetDateTime.now(), "johndoe")
+    private fun micropostsTestData(dsl: DSLContext):
+            Result<Record9<Int, String, String, OffsetDateTime, Int, Int, Int, Int, String>>? {
+        val records = dsl.newRecord(
+                MICROPOST.POST_ID,
+                MICROPOST.USER_NICKNAME,
+                MICROPOST.CONTENT,
+                MICROPOST.CREATED_AT,
+                POST_STATISTICS.POST_ID,
+                POST_STATISTICS.TOTAL_WORDS,
+                POST_STATISTICS.ALPHANUMERIC,
+                POST_STATISTICS.NON_ALPHANUMERIC,
+                POST_STATISTICS.WORD_OCCURRENCE
+        )
+        .values(
+                1,
+                "johndoe",
+                "test content",
+                OffsetDateTime.now(),
+                1,
+                1,
+                1,
+                1,
+                "{}"
+        )
 
-        val micropostsResult = dsl.newResult(Tables.MICROPOST)
+        val micropostsResult = dsl.newResult(
+                MICROPOST.POST_ID,
+                MICROPOST.USER_NICKNAME,
+                MICROPOST.CONTENT,
+                MICROPOST.CREATED_AT,
+                POST_STATISTICS.POST_ID,
+                POST_STATISTICS.TOTAL_WORDS,
+                POST_STATISTICS.ALPHANUMERIC,
+                POST_STATISTICS.NON_ALPHANUMERIC,
+                POST_STATISTICS.WORD_OCCURRENCE)
         micropostsResult.add(records)
 
         return micropostsResult
