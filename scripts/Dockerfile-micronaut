@@ -1,6 +1,6 @@
 FROM openjdk:8u151-jdk
 
-ARG MN_VERSION=1.0.0.M1
+ARG MN_VERSION=1.0.0
 ENV MN_VERSION=$MN_VERSION
 
 RUN wget https://github.com/micronaut-projects/micronaut-core/releases/download/v$MN_VERSION/micronaut-$MN_VERSION.zip

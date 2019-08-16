@@ -47,10 +47,16 @@ function start_containers {
 function install_service_images {
     echo ">>> Building micropost-service"
     (cd micropost-service \
-        && ./gradlew clean shadowJar \
         && docker build -t domahidizoltan/micropost-service:latest . \
         && docker tag domahidizoltan/micropost-service:latest localhost:5000/micropost-service:latest \
         && docker push localhost:5000/micropost-service:latest)
+
+    echo ">>> Building micropost-statistics"
+    (cd micropost-statistics \
+        && docker build -t domahidizoltan/micropost-statistics:latest . \
+        && docker tag domahidizoltan/micropost-statistics:latest localhost:5000/micropost-statistics:latest \
+        && docker push localhost:5000/micropost-statistics:latest)
+
 }
 
 function install {

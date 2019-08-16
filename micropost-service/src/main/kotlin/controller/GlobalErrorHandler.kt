@@ -7,7 +7,7 @@ import io.micronaut.http.annotation.Error
 import io.micronaut.http.hateos.JsonError
 import org.jooq.exception.DataAccessException
 
-@Controller
+@Controller("/error")
 class GlobalErrorHandler {
 
     @Error(global = true)

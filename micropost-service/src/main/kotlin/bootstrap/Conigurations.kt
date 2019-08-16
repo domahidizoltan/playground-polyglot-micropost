@@ -4,8 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.micronaut.context.annotation.Bean
+import io.micronaut.context.annotation.Context
 import io.micronaut.context.annotation.Factory
-import micropost.bootstrap.properties.DbConnectionProperties
+//import micropost.bootstrap.properties.DbConnectionProperties
 import micropost.data.tables.daos.MicropostDao
 import micropost.data.tables.daos.UserDao
 import micropost.service.PostStatisticsClient
@@ -23,17 +24,7 @@ import org.jooq.Configuration as JooqConfiguration
 @Factory
 class AppConfiguration {
 
-    @Singleton @Bean
-    fun datasource(db: DbConnectionProperties): DataSource {
-        val config = HikariConfig()
-        config.jdbcUrl = db.url
-        config.username = db.user
-        config.password = db.password
-        config.driverClassName = db.driverClassName
-        return HikariDataSource(config)
-    }
-
-    @Singleton @Bean
+    @Context @Singleton @Bean
     fun configuration(datasource: DataSource): JooqConfiguration {
         val config = DefaultConfiguration()
         config.setDataSource(datasource)

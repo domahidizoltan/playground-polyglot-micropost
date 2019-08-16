@@ -8,3 +8,5 @@ bin
 *.iws
 *.iml
 *.ipr
+
+*.code-workspace
