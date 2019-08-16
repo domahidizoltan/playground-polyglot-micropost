@@ -1,7 +1,3 @@
-echo ">> import dependencies"
-go get github.com/imdario/mergo
-go get google.golang.org/grpc
-
 echo ">> generate protobuf"
 protoc --go_out=plugins=grpc,import_path=proto:. proto/*.proto
 

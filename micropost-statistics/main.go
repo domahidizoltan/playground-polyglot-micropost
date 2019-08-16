@@ -7,8 +7,8 @@ import (
 	"log"
 	"google.golang.org/grpc"
 	"net/http"
-	"./api"
-	pb "./proto"
+	"github.com/domahidizoltan/playground-polyglot-micropost/micropost-statistics/api"
+	pb "github.com/domahidizoltan/playground-polyglot-micropost/micropost-statistics/proto"
 )
 
 const defaultHost = "localhost"

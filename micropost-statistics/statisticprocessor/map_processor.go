@@ -1,8 +1,8 @@
 package statisticprocessor
 
 import (
-	stat "../statistic"
-	mc "../statistic/mapcounter"
+	stat "github.com/domahidizoltan/playground-polyglot-micropost/micropost-statistics/statistic"
+	mc "github.com/domahidizoltan/playground-polyglot-micropost/micropost-statistics/statistic/mapcounter"
 )
 
 type mapStatisticCounter interface {

@@ -1,8 +1,8 @@
 package statisticprocessor
 
 import (
-	stat "../statistic"
-	ic "../statistic/intcounter"
+	stat "github.com/domahidizoltan/playground-polyglot-micropost/micropost-statistics/statistic"
+	ic "github.com/domahidizoltan/playground-polyglot-micropost/micropost-statistics/statistic/intcounter"
 )
 
 type intStatisticCounter interface {

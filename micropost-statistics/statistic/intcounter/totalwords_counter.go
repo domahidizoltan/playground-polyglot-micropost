@@ -1,7 +1,7 @@
 package intcounter
 
 import (
-	stat "../../statistic"
+	stat "github.com/domahidizoltan/playground-polyglot-micropost/micropost-statistics/statistic"
 	"log"
 	"regexp"
 )

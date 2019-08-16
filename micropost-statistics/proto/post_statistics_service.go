@@ -4,7 +4,7 @@ import (
 	"log"
 	"fmt"
 	"golang.org/x/net/context"
-	sp "../statisticprocessor"
+	sp "github.com/domahidizoltan/playground-polyglot-micropost/micropost-statistics/statisticprocessor"
 	"sync"
 )
 

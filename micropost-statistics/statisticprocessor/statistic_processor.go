@@ -1,7 +1,7 @@
 package statisticprocessor
 
 import (
-	stat "../statistic"
+	stat "github.com/domahidizoltan/playground-polyglot-micropost/micropost-statistics/statistic"
 	"encoding/json"
 	"github.com/imdario/mergo"
 	"log"

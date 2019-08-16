@@ -1,7 +1,7 @@
 package api
 
 import (
-	"../statisticprocessor"
+	"github.com/domahidizoltan/playground-polyglot-micropost/micropost-statistics/statisticprocessor"
 	"net/http"
 	"log"
 	"encoding/json"
