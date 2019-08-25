@@ -12,27 +12,12 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ${PWD}/../micropost-service/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
-    networks:
-      - kubeadm-dind-net
+      - ${PWD}/micropost-service/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    network_mode: bridge
 
   adminer:
     image: adminer
     container_name: micropost_adminer
     ports:
       - 9000:8080
-    networks:
-      - kubeadm-dind-net
-
-  docker-registry:
-    image: registry:2.6.2
-    container_name: registry
-    ports:
-      - 5000:5000
-    networks:
-      - kubeadm-dind-net
-
-networks:
-  kubeadm-dind-net:
-    external:
-      name: kubeadm-dind-net
+    network_mode: bridge

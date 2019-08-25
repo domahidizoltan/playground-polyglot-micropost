@@ -12,23 +12,21 @@ function install_micronaut {
 }
 
 function install_kubernetes {
-    echo ">>> Installing Kubernetes DIND cluster..."
-    #https://github.com/kubernetes-sigs/kubeadm-dind-cluster
-    ./scripts/dind-cluster-v1.8.sh up
-    export PATH="$HOME/.kubeadm-dind-cluster:$PATH"
+    echo ">>> Installing Kubernetes in Docker (KIND) cluster..."
+    #https://kind.sigs.k8s.io/
+    curl -Lo ./kind-linux-amd64 https://github.com/kubernetes-sigs/kind/releases/download/v0.4.0/kind-linux-amd64
+    chmod +x kind-linux-amd64
+    sudo mv kind-linux-amd64 /usr/local/bin/kind
+
+    kind create cluster --config scripts/kind-config.yml
+    export KUBECONFIG="$(kind get kubeconfig-path --name="kind")"
+
+    #kubectl
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubectl
+    chmod +x ./kubectl
+    sudo mv ./kubectl /usr/local/bin/kubectl
 }
 
-function disable_registry_authentication_for {
-    CONTAINERS=( "$@" )
-    CONFIG_FILE="/etc/docker/daemon.json"
-    echo ">>> Disable Docker registru authentication..."
-    for CONTAINER in "${CONTAINERS[@]}"; do
-        if ! docker exec ${CONTAINER} grep -q insecure-registries ${CONFIG_FILE}; then
-            echo "disable and restart ${CONTAINER}"
-            docker exec ${CONTAINER} sh -c "echo '{ \"insecure-registries\" : [\"registry:5000\"] }' > ${CONFIG_FILE} && service docker restart"
-        fi
-    done
-}
 
 function add_db_role {
     echo ">>> Add role to table"
@@ -38,8 +36,7 @@ function add_db_role {
 
 function start_containers {
     echo ">>> Starting Docker containers..."
-    (cd scripts \
-        && docker-compose up -d)
+    docker-compose -f scripts/docker-compose.yml up -d
 
     (echo "Waiting to start up containers..." && sleep 10 && add_db_role)
 }
@@ -47,24 +44,20 @@ function start_containers {
 function install_service_images {
     echo ">>> Building micropost-service"
     (cd micropost-service \
-        && docker build -t domahidizoltan/micropost-service:latest . \
-        && docker tag domahidizoltan/micropost-service:latest localhost:5000/micropost-service:latest \
-        && docker push localhost:5000/micropost-service:latest)
+        && docker build -t domahidizoltan/micropost-service:kind . \
+        && kind load docker-image domahidizoltan/micropost-service:kind)
 
     echo ">>> Building micropost-statistics"
     (cd micropost-statistics \
-        && docker build -t domahidizoltan/micropost-statistics:latest . \
-        && docker tag domahidizoltan/micropost-statistics:latest localhost:5000/micropost-statistics:latest \
-        && docker push localhost:5000/micropost-statistics:latest)
-
+        && docker build -t domahidizoltan/micropost-statistics:kind . \
+        && kind load docker-image domahidizoltan/micropost-statistics:kind)
 }
 
 function install {
     install_micronaut
-    install_kubernetes  #dashboard at http://localhost:8080/api/v1/namespaces/kube-system/services/kubernetes-dashboard:/proxy
-    disable_registry_authentication_for kube-master kube-node-1 kube-node-2
+    install_kubernetes
     start_containers
-    install_service_images  #images at http://localhost:5000/v2/_catalog
+    install_service_images
 }
 
 install
