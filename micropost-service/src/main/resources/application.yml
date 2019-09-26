@@ -1,9 +1,12 @@
+statistics:
+  host: ${STATISTICS_HOST:localhost}
+  port: ${STATISTICS_PORT:8030}
 ---
 micronaut:
-    application:
-        name: micropost-service
-    server:
-        port: 8010
+  application:
+    name: micropost-service
+  server:
+    port: 8010
 ---
 datasources:
   default:

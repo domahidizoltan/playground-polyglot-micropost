@@ -2,5 +2,8 @@ kind: Cluster
 apiVersion: kind.sigs.k8s.io/v1alpha3
 nodes:
 - role: control-plane
+  extraPortMappings:
+  - containerPort: 8010
+    hostPort: 80
 - role: worker
 - role: worker

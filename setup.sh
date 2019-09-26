@@ -18,6 +18,7 @@ function install_kubernetes {
     chmod +x kind-linux-amd64
     sudo mv kind-linux-amd64 /usr/local/bin/kind
 
+    kind delete cluster
     kind create cluster --config scripts/kind-config.yml
     export KUBECONFIG="$(kind get kubeconfig-path --name="kind")"
 
@@ -58,6 +59,9 @@ function install {
     install_kubernetes
     start_containers
     install_service_images
+
+    echo ">>> Finished installing. Run this before connecting to k8s cluster:"
+    echo "export KUBECONFIG=\"$(kind get kubeconfig-path --name=\"kind\")\""
 }
 
 install

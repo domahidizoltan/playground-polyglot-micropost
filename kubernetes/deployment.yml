@@ -1,0 +1,127 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micropost-service
+  labels:
+    name: micropost
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: micropost-service
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: micropost-service
+    spec:
+      hostname: micropost-service
+      containers:
+      - name: micropost-service
+        image: domahidizoltan/micropost-service:kind
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 8010
+          hostPort: 8010
+        livenessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /users
+            port: 8010
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 3
+          successThreshold: 1
+          timeoutSeconds: 2
+        readinessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /users
+            port: 8010
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 3
+          successThreshold: 1
+          timeoutSeconds: 2
+        env:
+          - name: DB_HOST
+            value: 172.17.0.1
+          - name: STATISTICS_HOST
+            value: micropost-statistics
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "500m"
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micropost-statistics
+  labels:
+    name: micropost
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: micropost-statistics
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 50%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: micropost-statistics
+    spec:
+      hostname: micropost-statistics
+      containers:
+      - name: micropost-statistics
+        image: domahidizoltan/micropost-statistics:kind
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 8020
+          hostPort: 8020
+        - name: grpc
+          protocol: TCP
+          containerPort: 8030
+          hostPort: 8030
+        livenessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /health
+            port: 8020
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 3
+          successThreshold: 1
+          timeoutSeconds: 2
+        readinessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /health
+            port: 8020
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 3
+          successThreshold: 1
+          timeoutSeconds: 2
+        env:
+          - name: HOST
+            value: 0.0.0.0
+        resources:
+          requests:
+            memory: "5Mi"
+            cpu: "10m"
+          limits:
+            memory: "32Mi"
+            cpu: "200m"

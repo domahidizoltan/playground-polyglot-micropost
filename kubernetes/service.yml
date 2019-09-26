@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: micropost-statistics
+spec:
+  ports:
+  - port: 8020
+    targetPort: 8020
+    protocol: TCP
+    name: http
+  - port: 8030
+    targetPort: 8030
+    protocol: TCP
+    name: grpc
+  selector:
+    app: micropost-statistics
+#  clusterIP: 192.168.29.79
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: micropost-service
+spec:
+  ports:
+  - port: 8010
+    protocol: TCP
+    name: http
+    targetPort: 8010
+  selector:
+    app: micropost-service
+  type: ClusterIP
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: load-balancer
+#spec:
+#  selector:
+#    app: load-balancer
+#  ports:
+#  - port: 80
+#    targetPort: 8010
+#  externalTrafficPolicy: Local
+#  type: LoadBalancer

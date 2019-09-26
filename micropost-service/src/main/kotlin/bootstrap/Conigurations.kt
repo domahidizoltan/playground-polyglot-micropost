@@ -6,7 +6,7 @@ import com.zaxxer.hikari.HikariDataSource
 import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Context
 import io.micronaut.context.annotation.Factory
-//import micropost.bootstrap.properties.DbConnectionProperties
+import io.micronaut.context.annotation.Value
 import micropost.data.tables.daos.MicropostDao
 import micropost.data.tables.daos.UserDao
 import micropost.service.PostStatisticsClient
@@ -53,12 +53,19 @@ class DataConfiguration {
 @Factory
 class ServiceConfiguration {
 
+    @Value("\${statistics.host}")
+    private lateinit var statisticsHost:String
+
+    @Value("\${statistics.port}")
+    private lateinit var statisticsPort:String
+
     @Singleton @Bean
     fun postStatisticsResponseObserver(jooqDsl: DSLContext, objectMapper: ObjectMapper): PostStatisticsResponseObserver =
             PostStatisticsResponseObserver(jooqDsl, objectMapper)
 
     @Singleton @Bean
-    fun postStatisticsClient(observer: PostStatisticsResponseObserver): PostStatisticsClient =
-            PostStatisticsClient("localhost", 8030, observer)
+    fun postStatisticsClient(observer: PostStatisticsResponseObserver): PostStatisticsClient {
+        return PostStatisticsClient(statisticsHost, statisticsPort.toInt(), observer)
+    }
 
 }
