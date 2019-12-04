@@ -1,0 +1,5 @@
+ul.list-group.striped li:nth-of-type(odd){ background: white; }
+ul.list-group.striped li:nth-of-type(even){ background: #eff3f7; }
+ul.list-group.hover li:hover{ background: lightblue; }
+
+nav { margin-top: 1rem; }
