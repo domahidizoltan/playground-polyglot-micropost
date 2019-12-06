@@ -18,8 +18,6 @@ export default class PagedList extends React.Component<Props> {
         super(props)
         this.items = props.items || []
         this.pages = props.pages || 0
-
-        console.log(this.items)
     }
 
     render() {

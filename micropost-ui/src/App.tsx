@@ -1,22 +1,31 @@
 import React from 'react'
+import {BrowserRouter, Switch, Route, RouteComponentProps} from 'react-router-dom'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../node_modules/font-awesome/css/font-awesome.min.css'
 import './index.css';
 
-import {PagedList, Header, Form} from './components'
+import {Header} from './component'
+import {Posts, AddPost, Users, AddUser} from './container';
 
-const App: React.FC = () => {
-  return (
-    <div className="container-fluid">
+class App extends React.Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <div className="container-fluid">
 
-      <Header/>
-      <PagedList 
-        items={[{title:"item1"}, {title:"item2"}, {title:"item3"}]}
-        pages={3} 
-        />
-      <Form/>
-    </div>
-  );
+          <Header/>
+          <Switch>
+            <Route exact path="/" component={Posts}/>
+            <Route exact path="/posts" component={Posts}/>
+            <Route exact path="/posts/add" component={AddPost}/>
+            <Route exact path="/users" component={Users}/>
+            <Route exact path="/users/add" component={AddUser}/>
+          </Switch>
+
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
