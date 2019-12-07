@@ -7,9 +7,7 @@ export interface AppStateType {
 export const setHeaderTitle = createAction<string>('SET_HEADER_TITLE')
 
 export const appStateReducer = createReducer({headerTitle: ''}, {
-    [setHeaderTitle.type]: (state, action) => {
-        return {headerTitle: action.payload}
-    }
+    [setHeaderTitle.type]: (state, action) => { return {headerTitle: action.payload} }
 })
 
 export var stateStore = configureStore({ reducer: appStateReducer})

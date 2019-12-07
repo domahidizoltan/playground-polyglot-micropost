@@ -2,18 +2,12 @@ import React from 'react';
 import {RouteComponentProps, withRouter} from 'react-router'
 import './Header.css'
 import {AppStateType, stateStore} from '../statestore/AppState'
+import { Navigation } from '../common/Navigation';
 
 class Header extends React.Component<RouteComponentProps, AppStateType, any> {
     constructor(props: RouteComponentProps) {
         super(props)
         stateStore.subscribe(this.forceUpdate.bind(this))
-    }
-
-    navTo(url: string) {
-        const {history} = this.props
-        if (history) {
-            history.push(url)
-        }
     }
 
     render() {
@@ -40,6 +34,8 @@ class Header extends React.Component<RouteComponentProps, AppStateType, any> {
             </header>
         );
     }
+
+    private navTo = (url: string) => Navigation.navTo(url, this.props)
 }
 
 export default withRouter(Header)

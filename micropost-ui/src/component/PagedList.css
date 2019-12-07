@@ -1,5 +1,13 @@
-ul.list-group.striped li:nth-of-type(odd){ background: white; }
-ul.list-group.striped li:nth-of-type(even){ background: #eff3f7; }
-ul.list-group.hover li:hover{ background: lightblue; }
+.list-group.striped :nth-of-type(even){ background: #eff3f7; }
+.list-group.striped :hover{ background: lightblue; }
+
+.list-group .list-group-item { padding: .5rem }
+.list-group .list-group-item * { background: inherit; margin-bottom: 0px; }
+.list-group .list-group-item .spinner-grow { background: #6c757d; margin-right: .3rem; margin-top: .1rem; }
 
 nav { margin-top: 1rem; }
+
+.page-item.align-middle { color: #6c757d; padding-top: .5rem; }
+a.page-item { cursor: pointer }
+.fa-angle-left, .fa-angle-double-left { margin-right: 1rem }
+.fa-angle-right, .fa-angle-double-right { margin-left: 1rem }
