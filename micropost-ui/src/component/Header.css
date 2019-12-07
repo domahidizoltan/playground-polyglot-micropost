@@ -1,4 +1,12 @@
-.container-fluid header {
+.container header {
     margin-top: 1rem;
     margin-bottom: 2rem;
-  }
+}
+
+.container header h3 {
+  font-size: 1.2rem;
+}
+
+.container header button {
+  font-size: 0.8rem;
+}

@@ -6,9 +6,7 @@ import {AppStateType, stateStore} from '../statestore/AppState'
 class Header extends React.Component<RouteComponentProps, AppStateType, any> {
     constructor(props: RouteComponentProps) {
         super(props)
-        if (stateStore.getState().headerTitle == '') {
-            setTimeout(this.shouldComponentUpdate.bind(this), 200)
-        }
+        stateStore.subscribe(this.forceUpdate.bind(this))
     }
 
     navTo(url: string) {
@@ -18,18 +16,13 @@ class Header extends React.Component<RouteComponentProps, AppStateType, any> {
         }
     }
 
-    shouldComponentUpdate() {
-        this.forceUpdate()
-        return true
-    }
-
     render() {
-        let {headerTitle} = stateStore.getState()
+        const {headerTitle} = stateStore.getState()
         return (
             <header className="header">
                 <div className="row">
                     <div className="col"><h3>{headerTitle}</h3></div>
-                    <div className="col nav justify-content-end">
+                    <div className="col-8 nav justify-content-end">
                         <div role="group" className="btn-group">
                             <button type="button" className="btn btn-secondary" onClick={e => this.navTo("/posts")}>Posts</button>
                             <button type="button" className="btn btn-dark" onClick={e => this.navTo("/posts/add")}>

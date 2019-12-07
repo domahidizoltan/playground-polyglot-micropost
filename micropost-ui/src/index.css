@@ -7,7 +7,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: .9rem;
+  font-size: .8rem;
 }
 
 code {
@@ -15,7 +15,8 @@ code {
     monospace;
 }
 
-.container-fluid {
-  min-width: 40em;
+.container {
+  min-width: 360px;
   max-width: 70em;
+  padding: 5px 10px;
 }

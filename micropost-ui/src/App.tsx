@@ -11,7 +11,7 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="container-fluid">
+        <div className="container">
 
           <Header/>
           <Switch>
