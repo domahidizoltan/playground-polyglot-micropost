@@ -11,3 +11,27 @@ export const appStateReducer = createReducer({headerTitle: ''}, {
 })
 
 export var stateStore = configureStore({ reducer: appStateReducer})
+
+
+
+export enum ResultType {
+    success,
+    error
+}
+
+export interface OperationResult {
+    type: ResultType,
+    message: string 
+}
+
+export interface OperationResultState {
+    lastResult?: OperationResult
+}
+
+export const setLastOperationResult = createAction<OperationResult|undefined>('SET_LAST_OPERATION_RESULT')
+
+export const operationStateReducer = createReducer({lastResult: undefined}, {
+    [setLastOperationResult.type]: (state, action) => { return {lastResult: action.payload} }
+})
+
+export var operationResultStateStore = configureStore({ reducer: operationStateReducer})

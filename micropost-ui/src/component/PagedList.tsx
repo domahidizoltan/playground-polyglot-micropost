@@ -4,9 +4,9 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { Navigation } from '../common/Navigation';
 
 export interface Item {
-    title: string,
-    date?: string,
-    description?: string
+    content: string,
+    heading?: string,
+    date?: string
 }
 
 interface PagingLink {
@@ -43,11 +43,13 @@ class PagedList extends React.Component<PagedListProps> {
             if (items.length > 0) {
                 return items.map(item => (
                     <div className="list-group-item">
+                        {(item.heading || item.date) ?
                         <div className="d-flex w-100 justify-content-between">
-                            <b>{item.title}</b>
+                            <b><small>{item.heading || ''}</small></b>
                             <small>{item.date || ''}</small>
                         </div>
-                        {(item.description) ? <p>{item.description}</p> : ''}
+                        : null}
+                        <p>{item.content}</p>
                     </div>
                 ))
             } else {

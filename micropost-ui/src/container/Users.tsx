@@ -29,6 +29,6 @@ export default class Users extends React.Component<RouteComponentProps> {
 
     private toItems = (items:any[]): Item[] =>
         items.map((item:any) => ({
-            title: item.nickname
+            content: item.nickname
         }))
 }

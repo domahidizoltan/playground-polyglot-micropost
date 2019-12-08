@@ -3,11 +3,20 @@ import {RouteComponentProps, withRouter} from 'react-router'
 import './Header.css'
 import {AppStateType, stateStore} from '../statestore/AppState'
 import { Navigation } from '../common/Navigation';
+import { Unsubscribe } from 'redux';
 
 class Header extends React.Component<RouteComponentProps, AppStateType, any> {
-    constructor(props: RouteComponentProps) {
-        super(props)
-        stateStore.subscribe(this.forceUpdate.bind(this))
+    
+    storeSubscription?: Unsubscribe
+    
+    componentWillMount() {
+        this.storeSubscription = stateStore.subscribe(this.forceUpdate.bind(this))
+    }
+
+    componentWillUnmount() {
+        if (this.storeSubscription) {
+            this.storeSubscription()
+        }
     }
 
     render() {

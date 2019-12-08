@@ -30,9 +30,9 @@ export default class Posts extends React.Component<RouteComponentProps> {
 
     private toItems = (items:any[]): Item[] =>
         items.map((item:any) => ({
-            title: item.userNickname,
-            date: item.createdAt,
-            description: item.content
+            content: item.content,
+            heading: item.userNickname,
+            date: item.createdAt
         }))
         
 }
