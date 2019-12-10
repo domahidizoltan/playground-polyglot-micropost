@@ -2,7 +2,7 @@ import React from 'react';
 import {RouteComponentProps, withRouter} from 'react-router'
 import './Header.css'
 import {AppStateType, stateStore} from '../statestore/AppState'
-import { Navigation } from '../common/Navigation';
+import { Navigation } from '../common/Helpers';
 import { Unsubscribe } from 'redux';
 
 class Header extends React.Component<RouteComponentProps, AppStateType, any> {

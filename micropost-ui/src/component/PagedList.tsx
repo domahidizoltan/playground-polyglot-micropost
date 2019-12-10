@@ -1,12 +1,13 @@
 import React from 'react';
 import './PagedList.css'
 import { RouteComponentProps, withRouter } from 'react-router';
-import { Navigation } from '../common/Navigation';
+import { Navigation, Helper } from '../common/Helpers';
 
 export interface Item {
     content: string,
     heading?: string,
-    date?: string
+    date?: string,
+    url?: string
 }
 
 interface PagingLink {
@@ -42,7 +43,7 @@ class PagedList extends React.Component<PagedListProps> {
         if (items) {
             if (items.length > 0) {
                 return items.map(item => (
-                    <div className="list-group-item">
+                    <div className="list-group-item" onClick={(e) => this.navTo(item.url)}>
                         {(item.heading || item.date) ?
                         <div className="d-flex w-100 justify-content-between">
                             <b><small>{item.heading || ''}</small></b>
@@ -66,7 +67,7 @@ class PagedList extends React.Component<PagedListProps> {
 
     private getPagination(paging: Paging) {
         if (paging) {
-            let pageLinks = new Map(paging.links.map(link => [link.rel, link.href] as [string, string]))
+            let pageLinks = Helper.getLinksAsMap(paging)
 
             return (
                 <nav>
@@ -95,8 +96,10 @@ class PagedList extends React.Component<PagedListProps> {
         }
     }
 
-    private navTo = (url: string) => {
-        Navigation.navTo(url, this.props)
+    private navTo = (url?: string) => {
+        if (url) {
+            Navigation.navTo(url, this.props)
+        }
     }
 }
 

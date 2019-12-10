@@ -1,7 +1,7 @@
 .list-group.striped :nth-of-type(even){ background: #eff3f7; }
 .list-group.striped :hover{ background: lightblue; }
 
-.list-group .list-group-item { padding: .5rem }
+.list-group .list-group-item { padding: .5rem; cursor: pointer; }
 .list-group .list-group-item * { background: inherit; margin-bottom: 0px; }
 .list-group .list-group-item .spinner-grow { background: #6c757d; margin-right: .3rem; margin-top: .1rem; }
 

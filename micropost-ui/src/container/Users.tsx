@@ -4,6 +4,7 @@ import { stateStore, setHeaderTitle } from "../statestore/AppState";
 import { PagedListProps, Item } from "../component/PagedList";
 import serviceBaseUrl from "../common/Constants";
 import { RouteComponentProps } from "react-router";
+import { Helper } from "../common/Helpers";
 
 export default class Users extends React.Component<RouteComponentProps> {
     componentWillMount = () => stateStore.dispatch(setHeaderTitle("Users"))
@@ -29,6 +30,7 @@ export default class Users extends React.Component<RouteComponentProps> {
 
     private toItems = (items:any[]): Item[] =>
         items.map((item:any) => ({
-            content: item.nickname
+            content: item.nickname,
+            url: Helper.getLinksAsMap(item).get('read')
         }))
 }

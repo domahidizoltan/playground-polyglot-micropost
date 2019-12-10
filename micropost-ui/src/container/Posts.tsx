@@ -4,6 +4,7 @@ import { setHeaderTitle, stateStore } from "../statestore/AppState";
 import { PagedListProps, Item } from "../component/PagedList";
 import serviceBaseUrl from "../common/Constants";
 import { RouteComponentProps } from "react-router";
+import { Helper } from "../common/Helpers";
 
 export default class Posts extends React.Component<RouteComponentProps> {
 
@@ -32,7 +33,8 @@ export default class Posts extends React.Component<RouteComponentProps> {
         items.map((item:any) => ({
             content: item.content,
             heading: item.userNickname,
-            date: item.createdAt
+            date: item.createdAt,
+            url: Helper.getLinksAsMap(item).get('read')
         }))
         
 }

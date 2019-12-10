@@ -7,11 +7,13 @@ import { operationResultStateStore, setLastOperationResult, ResultType,
 import { Unsubscribe } from '@reduxjs/toolkit';
 
 export interface FormProps extends RouteComponentProps {
-    endpointBaseUrl: string,
-    handleCancel(event: any): void
+    submitUrl: string,
+    handleCancel(event: any): void,
+    formData?: any,
+    updateIdFieldName: string
 }
 
-export default abstract class Form extends React.Component<FormProps> {
+export default abstract class Form extends React.Component<FormProps, any> {
 
     abstract formContent(): JSX.Element;
 
@@ -26,14 +28,16 @@ export default abstract class Form extends React.Component<FormProps> {
         var data:any = {};
         new FormData(event.target).forEach((value, key) => {data[key] = value});
 
-        this.postData(data);
+        this.saveData(data);
     }    
 
     render() {
+        let updateId = this.getUpdateId()
         return (
             <div>
                 <div className="contact-clean">
                     <form onSubmit={this.handleSubmit}>
+                        {(updateId) ? <input type="hidden" name="updateId" value={updateId} /> : ''}
                         {this.formContent()}
                         <div className="d-flex w-100 justify-content-between">
                             <div className="w-100"><OperationFeedback/></div>
@@ -49,10 +53,21 @@ export default abstract class Form extends React.Component<FormProps> {
             </div>
         );
     }
+    
+    private getUpdateId() {
+        let name = this.props.updateIdFieldName
+        let props = this.props as any
+        if (props.formData) {
+            return props.formData[name]
+        }
+    }
 
-    private postData = (data: any) =>
-        fetch(`${serviceBaseUrl}${this.props.endpointBaseUrl}`, {
-            method: 'POST',
+    private saveData(data: any) {
+        let method = (data.updateId) ? 'PUT' : 'POST'
+        let urlIdPart = (data.updateId) ? `/${data.updateId}` : ''
+
+        fetch(`${serviceBaseUrl}${this.props.submitUrl}${urlIdPart}`, {
+            method: method,
             body: JSON.stringify(data)
         })
         .then(data => {
@@ -63,14 +78,18 @@ export default abstract class Form extends React.Component<FormProps> {
                 this.dispatchSuccessResult();
             }
         })
-        .catch(console.log);
+        .catch((error) => {
+            console.log(error)
+            this.dispatchErrorResult(error.message);
+        })
+    }
 
 
     private dispatchErrorResult = (error:any) => 
-    operationResultStateStore.dispatch(setLastOperationResult({
-        type: ResultType.error,
-        message: error
-    }));
+        operationResultStateStore.dispatch(setLastOperationResult({
+            type: ResultType.error,
+            message: error
+        }));
 
     private dispatchSuccessResult = () => 
         operationResultStateStore.dispatch(setLastOperationResult({
