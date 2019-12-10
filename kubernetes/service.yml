@@ -30,6 +30,20 @@ spec:
   selector:
     app: micropost-service
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: micropost-ui
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+    name: http
+    targetPort: 3000
+  selector:
+    app: micropost-ui
+  type: ClusterIP
 #---
 #apiVersion: v1
 #kind: Service

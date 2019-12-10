@@ -20,7 +20,8 @@
   },
   "scripts": {
     "watch": "npm-watch",
-    "start": "serve -s build -l 3000",
+    "dev": "serve -s build -l 3000",
+    "start": "chmod +x ./env.sh && cp env-config.js ./public/ && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

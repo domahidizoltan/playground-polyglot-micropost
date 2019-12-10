@@ -123,7 +123,7 @@ class OperationFeedback extends React.Component<any, OperationResultState> {
         const {lastResult} = operationResultStateStore.getState()
         if (lastResult) { 
             let result: OperationResult = lastResult!
-            const styleName = result.type == ResultType.success ? 'success' : 'danger'
+            const styleName = result.type === ResultType.success ? 'success' : 'danger'
             const classNames = `alert alert-${styleName}`
             return <div className={classNames}>{result.message}</div>    
         }

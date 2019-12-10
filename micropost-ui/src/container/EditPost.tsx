@@ -11,7 +11,7 @@ export default class EditPost extends React.Component<RouteComponentProps<RouteP
     
     componentWillMount() {
         const id = Navigation.getId(this.props)
-        const isNew = id == 'add'
+        const isNew = id === 'add'
         const prefix = isNew ? 'Add' : 'Edit'
         stateStore.dispatch(setHeaderTitle(prefix + " Post"))
 

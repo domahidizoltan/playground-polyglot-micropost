@@ -1,8 +1,8 @@
 import React from "react";
 import { UserForm } from "../component";
 import { stateStore, setHeaderTitle } from "../statestore/AppState";
-import { RouteComponentProps, RouterProps } from "react-router";
-import { Navigation, Helper } from "../common/Helpers";
+import { RouteComponentProps } from "react-router";
+import { Navigation } from "../common/Helpers";
 import { RouteParams } from "../common/Types";
 import serviceBaseUrl from "../common/Constants";
 
@@ -11,7 +11,7 @@ export default class EditUser extends React.Component<RouteComponentProps<RouteP
     
     componentWillMount() {
         const id = Navigation.getId(this.props)
-        const isNew = id == 'add'
+        const isNew = id === 'add'
         const prefix = isNew ? 'Add' : 'Edit'
         stateStore.dispatch(setHeaderTitle(prefix + " User"))
 

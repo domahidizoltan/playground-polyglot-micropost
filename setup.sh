@@ -52,6 +52,11 @@ function install_service_images {
     (cd micropost-statistics \
         && docker build -t domahidizoltan/micropost-statistics:kind . \
         && kind load docker-image domahidizoltan/micropost-statistics:kind)
+
+    echo ">>> Building micropost-ui"
+    (cd micropost-ui \
+        && docker build -t domahidizoltan/micropost-ui:kind . \
+        && kind load docker-image domahidizoltan/micropost-ui:kind)
 }
 
 function install {

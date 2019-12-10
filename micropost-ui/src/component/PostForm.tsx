@@ -41,7 +41,7 @@ export default class PostForm extends Form {
             return (
                 <div>
                     <button type="button" className="btn btn-outline-link btn-sm" onClick={this.toggleStats}>Show statistics</button>
-                    <pre id="stats" className="card" style={{marginTop:"1rem", padding:"0.5rem"}} hidden><big><code>{JSON.stringify(stats, null, 2)}</code></big></pre>
+                    <pre id="stats" className="card" style={{marginTop:"1rem", padding:"0.5rem"}} hidden><code>{JSON.stringify(stats, null, 2)}</code></pre>
                 </div>
             )
         }
