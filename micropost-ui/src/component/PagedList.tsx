@@ -66,7 +66,7 @@ class PagedList extends React.Component<PagedListProps> {
     }
 
     private getPagination(paging: Paging) {
-        if (paging) {
+        if (paging && paging.links) {
             let pageLinks = Helper.getLinksAsMap(paging)
 
             return (
@@ -77,7 +77,7 @@ class PagedList extends React.Component<PagedListProps> {
                             {this.getPageLink('left', pageLinks.get('prev'))}
                         </div>
                         <div className="page-item align-middle">
-                            {paging.page} / {paging.totalPages}
+                            {paging.page + 1} / {paging.totalPages + 1}
                         </div>
                         <div>
                             {this.getPageLink('right', pageLinks.get('next'))}

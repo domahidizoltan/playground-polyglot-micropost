@@ -25,7 +25,7 @@ class PagingResource() : ResourceSupport() {
 
         val safePage = pageArg!!
         totalPages = totalArg / sizeArg
-        val lastPage = totalPages!! - 1
+        val lastPage = totalPages!!
 
         with(this) {
             if (lastPage > 0) {

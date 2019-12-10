@@ -19,14 +19,16 @@ export default class Users extends React.Component<RouteComponentProps> {
 
     render = () => <PagedList {...this.state as PagedListProps}/>
 
-    private fetchItems = () => 
-        fetch(`${serviceBaseUrl}/users${this.props.location.search}`)
+    private fetchItems() {
+        const paging = this.props.location.search || '?size=10&page=0'
+        fetch(`${serviceBaseUrl}/users${paging}`)
             .then(res => res.json())
             .then(data => this.setState({...this.state, 
-                items: this.toItems(data.resources), 
+                items: (data.resources) ? this.toItems(data.resources) : {}, 
                 paging: data.paging
             }))
             .catch(console.log)
+    }
 
     private toItems = (items:any[]): Item[] =>
         items.map((item:any) => ({

@@ -49,10 +49,10 @@ dependencies {
     compile(
             "io.micronaut:micronaut-http-client:$micronautVersion",
             "io.micronaut:micronaut-http-server-netty:$micronautVersion",
-            "io.micronaut.configuration:micronaut-jdbc-hikari:$micronautVersion",
+            "io.micronaut.configuration:micronaut-jdbc-hikari:1.2.3",
             "io.micronaut:micronaut-inject:$micronautVersion",
             "io.micronaut:micronaut-runtime:$micronautVersion",
-            "io.micronaut.configuration:micronaut-hibernate-validator:$micronautVersion",
+            "io.micronaut.configuration:micronaut-hibernate-validator:1.1.4",
 
             "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion",
             "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion",

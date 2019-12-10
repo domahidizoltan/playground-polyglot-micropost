@@ -7,13 +7,13 @@ wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerr
 wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.29-r0/glibc-2.29-r0.apk && \
 apk add glibc-2.29-r0.apk
 
-RUN ./gradlew shadowJar -x test -x generateDbJooqSchemaSource
+RUN ./gradlew clean shadowJar -x test -x generateDbJooqSchemaSource
 
 ###
 FROM openjdk:8u171-jre-alpine3.7
 
 WORKDIR /app
-COPY --from=build /app/build/libs/micropost-service-0.1-all.jar micropost-service.jar
+COPY --from=build /app/build/libs/app-0.1-all.jar micropost-service.jar
 
 EXPOSE 8010
 ENTRYPOINT java -jar /app/micropost-service.jar

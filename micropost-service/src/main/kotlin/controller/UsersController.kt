@@ -36,6 +36,7 @@ class UsersController(private val userDao: UserDao,
                @Nullable @QueryValue("size") size: Int?): HttpResponse<UserResourceList> {
         val resources = jooq.selectFrom(USER)
                 .paginate(page, size)
+                .orderBy(USER.NICKNAME.asc())
                 .fetchInto(UserResource::class.java)
 
         resources.forEach {

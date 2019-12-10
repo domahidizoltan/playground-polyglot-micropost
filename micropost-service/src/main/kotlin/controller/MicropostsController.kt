@@ -39,13 +39,15 @@ class MicropostsController(private val micropostDao: MicropostDao,
     private val userHal = HalBuilder.forPath(USERS_PATH)
     private val userLink = { nickname:String -> userHal.buildLink("user", "/{nickname}", nickname) }
 
-    private val joinPostWithStatistics = MICROPOST.join(POST_STATISTICS).on(POST_STATISTICS.POST_ID.eq(MICROPOST.POST_ID))
+    private val joinPostWithStatistics = MICROPOST
+            .leftJoin(POST_STATISTICS).on(POST_STATISTICS.POST_ID.eq(MICROPOST.POST_ID))
 
     @Get("/")
     fun getAll(@Nullable @QueryValue("page") page: Int?,
                @Nullable @QueryValue("size") size: Int?): HttpResponse<MicropostResourceList> {
         val resources = jooq.selectFrom(joinPostWithStatistics)
                 .paginate(page, size)
+                .orderBy(MICROPOST.CREATED_AT.desc())
                 .fetch()
                 .map { it.toResource(objectMapper) }
 

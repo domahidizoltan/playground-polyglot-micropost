@@ -41,13 +41,18 @@ fun MicropostResource.toEntity(): Micropost {
 
 fun Record.toResource(objectMapper: ObjectMapper): MicropostResource {
     val typeRef = object : TypeReference<HashMap<String, Int>>() {}
-    val statistics = PostStatisticsDto(
-            postId = this.get(POST_STATISTICS.POST_ID),
-            totalWords = this.get(POST_STATISTICS.TOTAL_WORDS),
-            alphanumeric = this.get(POST_STATISTICS.ALPHANUMERIC),
-            nonAlphanumeric = this.get(POST_STATISTICS.NON_ALPHANUMERIC),
-            wordOccurrence = objectMapper.readValue(this.get(POST_STATISTICS.WORD_OCCURRENCE), typeRef)
-    )
+    val statistics = if (this.get(POST_STATISTICS.POST_ID) != null) {
+        PostStatisticsDto(
+                postId = this.get(POST_STATISTICS.POST_ID),
+                totalWords = this.get(POST_STATISTICS.TOTAL_WORDS),
+                alphanumeric = this.get(POST_STATISTICS.ALPHANUMERIC),
+                nonAlphanumeric = this.get(POST_STATISTICS.NON_ALPHANUMERIC),
+                wordOccurrence = objectMapper.readValue(this.get(POST_STATISTICS.WORD_OCCURRENCE), typeRef)
+        )
+    } else {
+        null
+    }
+
     return MicropostResource(
             postId = this.get(MICROPOST.POST_ID),
             content = this.get(MICROPOST.CONTENT),

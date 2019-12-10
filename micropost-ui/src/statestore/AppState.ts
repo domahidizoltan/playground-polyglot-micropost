@@ -21,7 +21,7 @@ export enum ResultType {
 
 export interface OperationResult {
     type: ResultType,
-    message: string 
+    message: string|JSX.Element 
 }
 
 export interface OperationResultState {

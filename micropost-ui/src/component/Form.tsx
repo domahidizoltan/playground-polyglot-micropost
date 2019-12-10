@@ -5,6 +5,7 @@ import serviceBaseUrl from '../common/Constants';
 import { operationResultStateStore, setLastOperationResult, ResultType, 
     OperationResultState, OperationResult } from '../statestore/AppState';
 import { Unsubscribe } from '@reduxjs/toolkit';
+import { Link } from 'react-router-dom';
 
 export interface FormProps extends RouteComponentProps {
     submitUrl: string,
@@ -68,6 +69,9 @@ export default abstract class Form extends React.Component<FormProps, any> {
 
         fetch(`${serviceBaseUrl}${this.props.submitUrl}${urlIdPart}`, {
             method: method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         .then(data => {
@@ -80,21 +84,23 @@ export default abstract class Form extends React.Component<FormProps, any> {
         })
         .catch((error) => {
             console.log(error)
-            this.dispatchErrorResult(error.message);
+            this.dispatchErrorResult(error);
         })
     }
 
 
-    private dispatchErrorResult = (error:any) => 
-        operationResultStateStore.dispatch(setLastOperationResult({
+    private dispatchErrorResult(error:any) {
+        const message = JSON.parse(error).message
+        return operationResultStateStore.dispatch(setLastOperationResult({
             type: ResultType.error,
-            message: error
+            message: message
         }));
-
+    }
+        
     private dispatchSuccessResult = () => 
         operationResultStateStore.dispatch(setLastOperationResult({
             type: ResultType.success,
-            message: 'Saved successfully'
+            message: <span>Saved. Go back to <Link to={this.props.submitUrl}>the list</Link></span>
         }));
 
 }
