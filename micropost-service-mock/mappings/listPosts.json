@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/posts.*"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+    	"Access-Control-Allow-Origin": "*"
+    },
+    "bodyFileName": "listPosts.json"
+  }
+}

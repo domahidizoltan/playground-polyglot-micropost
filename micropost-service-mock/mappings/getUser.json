@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/users/[a-z0-9]+"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+    	"Access-Control-Allow-Origin": "*"
+    },
+    "bodyFileName": "getUser.json"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/users.*"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "listUsers.json"
+  }
+}

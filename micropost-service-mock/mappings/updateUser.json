@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "PUT",
+    "urlPattern": "/users/[a-z0-9]+"
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+    	"Access-Control-Allow-Origin": "*"
+    },
+    "body": "someupdateerror"
+  }
+}

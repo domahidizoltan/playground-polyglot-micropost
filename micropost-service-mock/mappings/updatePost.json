@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "PUT",
+    "urlPattern": "/posts/[0-9]+"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+    	"Access-Control-Allow-Origin": "*"
+    },
+    "body": "ok"
+  }
+}

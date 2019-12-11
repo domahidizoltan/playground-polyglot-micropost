@@ -1,0 +1,58 @@
+{
+    "resources": [
+        {
+            "nickname": "nickname2",
+            "email": "email2@address.com",
+            "firstName": "firstName2",
+            "lastName": "lastName2",
+            "links": [
+                {
+                    "rel": "read",
+                    "href": "/users/nickname2"
+                },
+                {
+                    "rel": "post",
+                    "href": "/posts/user/nickname2"
+                }
+            ]
+        },
+        {
+            "nickname": "nickname3",
+            "email": "email3@address.com",
+            "firstName": "firstName3",
+            "lastName": "lastName3",
+            "links": [
+                {
+                    "rel": "read",
+                    "href": "/users/nickname3"
+                },
+                {
+                    "rel": "post",
+                    "href": "/posts/user/nickname3"
+                }
+            ]
+        }
+    ],
+    "paging": {
+        "page": 1,
+        "size": 2,
+        "totalItems": 3,
+        "totalPages": 1,
+        "links": [
+            {
+                "rel": "prev",
+                "href": "/users/?page=0&size=2"
+            },
+            {
+                "rel": "next",
+                "href": "/users/?page=2&size=2"
+            }
+        ]
+    },
+    "links": [
+        {
+            "rel": "create",
+            "href": "/users"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/posts"
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+    	"Access-Control-Allow-Origin": "*"
+    }
+  }
+}

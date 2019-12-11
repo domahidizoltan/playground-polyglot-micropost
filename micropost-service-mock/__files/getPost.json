@@ -1,0 +1,27 @@
+{
+    "postId": 1,
+    "content": "content is my content",
+    "createdAt": "2019-12-07T08:36:08.360Z",
+    "userNickname": "nickname",
+    "statistics": {
+        "postId": 1,
+        "totalWords": 4,
+        "alphanumeric": 18,
+        "nonAlphanumeric": 3,
+        "wordOccurrence": {
+            "is": 1,
+            "my": 1,
+            "content": 2
+        }
+    },
+    "links": [
+        {
+            "rel": "read",
+            "href": "/posts/1"
+        },
+        {
+            "rel": "user",
+            "href": "/users/nickname"
+        }
+    ]
+}

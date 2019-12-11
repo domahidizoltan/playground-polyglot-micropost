@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/users"
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+    	"Access-Control-Allow-Origin": "*"
+    },
+    "body": "someerror"
+  }
+}

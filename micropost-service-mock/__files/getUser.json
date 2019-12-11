@@ -1,0 +1,16 @@
+{
+    "nickname": "nickname2",
+    "email": "email2@address.com",
+    "firstName": "firstName2",
+    "lastName": "lastName2",
+    "links": [
+        {
+            "rel": "read",
+            "href": "/users/nickname2"
+        },
+        {
+            "rel": "post",
+            "href": "/posts/user/nickname2"
+        }
+    ]
+}

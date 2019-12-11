@@ -1,0 +1,193 @@
+{
+    "resources": [
+        {
+            "postId": 1,
+            "content": "content is my content",
+            "createdAt": "2019-12-07T08:36:08.360Z",
+            "userNickname": "nickname",
+            "statistics": {
+                "postId": 1,
+                "totalWords": 4,
+                "alphanumeric": 18,
+                "nonAlphanumeric": 3,
+                "wordOccurrence": {
+                    "is": 1,
+                    "my": 1,
+                    "content": 2
+                }
+            },
+            "links": [
+                {
+                    "rel": "read",
+                    "href": "/posts/1"
+                },
+                {
+                    "rel": "user",
+                    "href": "/users/nickname"
+                }
+            ]
+        },
+        {
+            "postId": 2,
+            "content": "content is my content2",
+            "createdAt": "2019-12-07T08:36:12.983Z",
+            "userNickname": "nickname",
+            "statistics": {
+                "postId": 2,
+                "totalWords": 4,
+                "alphanumeric": 19,
+                "nonAlphanumeric": 3,
+                "wordOccurrence": {
+                    "content2": 1,
+                    "is": 1,
+                    "my": 1,
+                    "content": 1
+                }
+            },
+            "links": [
+                {
+                    "rel": "read",
+                    "href": "/posts/2"
+                },
+                {
+                    "rel": "user",
+                    "href": "/users/nickname"
+                }
+            ]
+        },
+        {
+            "postId": 3,
+            "content": "content is my content3",
+            "createdAt": "2019-12-07T08:36:20.117Z",
+            "userNickname": "nickname",
+            "statistics": {
+                "postId": 3,
+                "totalWords": 4,
+                "alphanumeric": 19,
+                "nonAlphanumeric": 3,
+                "wordOccurrence": {
+                    "content3": 1,
+                    "is": 1,
+                    "my": 1,
+                    "content": 1
+                }
+            },
+            "links": [
+                {
+                    "rel": "read",
+                    "href": "/posts/3"
+                },
+                {
+                    "rel": "user",
+                    "href": "/users/nickname"
+                }
+            ]
+        },
+        {
+            "postId": 4,
+            "content": "content is my content10",
+            "createdAt": "2019-12-07T08:36:27.736Z",
+            "userNickname": "nickname2",
+            "statistics": {
+                "postId": 4,
+                "totalWords": 4,
+                "alphanumeric": 20,
+                "nonAlphanumeric": 3,
+                "wordOccurrence": {
+                    "content10": 1,
+                    "is": 1,
+                    "my": 1,
+                    "content": 1
+                }
+            },
+            "links": [
+                {
+                    "rel": "read",
+                    "href": "/posts/4"
+                },
+                {
+                    "rel": "user",
+                    "href": "/users/nickname2"
+                }
+            ]
+        },
+        {
+            "postId": 5,
+            "content": "content is my content11",
+            "createdAt": "2019-12-07T08:36:31.302Z",
+            "userNickname": "nickname2",
+            "statistics": {
+                "postId": 5,
+                "totalWords": 4,
+                "alphanumeric": 20,
+                "nonAlphanumeric": 3,
+                "wordOccurrence": {
+                    "content11": 1,
+                    "is": 1,
+                    "my": 1,
+                    "content": 1
+                }
+            },
+            "links": [
+                {
+                    "rel": "read",
+                    "href": "/posts/5"
+                },
+                {
+                    "rel": "user",
+                    "href": "/users/nickname2"
+                }
+            ]
+        },
+        {
+            "postId": 6,
+            "content": "content is my content20",
+            "createdAt": "2019-12-07T08:36:38.510Z",
+            "userNickname": "nickname3",
+            "statistics": {
+                "postId": 6,
+                "totalWords": 4,
+                "alphanumeric": 20,
+                "nonAlphanumeric": 3,
+                "wordOccurrence": {
+                    "is": 1,
+                    "content20": 1,
+                    "my": 1,
+                    "content": 1
+                }
+            },
+            "links": [
+                {
+                    "rel": "read",
+                    "href": "/posts/6"
+                },
+                {
+                    "rel": "user",
+                    "href": "/users/nickname3"
+                }
+            ]
+        }
+    ],
+    "paging": {
+        "page": 1,
+        "size": 2,
+        "totalItems": 3,
+        "totalPages": 1,
+        "links": [
+            {
+                "rel": "prev",
+                "href": "/posts/?page=0&size=2"
+            },
+            {
+                "rel": "next",
+                "href": "/posts/?page=2&size=2"
+            }
+        ]
+    },
+    "links": [
+        {
+            "rel": "create",
+            "href": "/posts"
+        }
+    ]
+}
