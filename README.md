@@ -1,44 +1,60 @@
-# WIP: playground-polyglot-micropost
+# playground-polyglot-micropost
 
 This is a playground project to learn some previously unused technologies such as Micronaut, Kotlin, Jooq, gRPC, Golang, React, Kubernetes
 
 This project will contain 3 service:
-- micropost-service: a Rest (Hal) service what will manage users, microposts and micropost statistics calculated by micropost-statistics service (using Micronaut, Kotlin, Jooq, gRPC)
-- micropost-statistics: a simple Go service to calculate some statistics of a micropost (using Golang, gRPC)
-- micropost-ui (TODO): a frontend for managing micropost (using React)
+- micropost-service: a Rest (Hal) service what will manage users, microposts and micropost statistics computed by 
+`micropost-statistics` service (using Micronaut 1.2.7, Kotlin 1.2.61 on JDK 8, Jooq 3.10.4, gRPC)
+- micropost-statistics: a simple Go service to compute some statistics of a micropost (using Golang 1.11, gRPC)
+- micropost-ui: a frontend for managing micropost (using React 16.12.0 with TypeScript 3.7.2 on Node 13.3.0)
 
-The services will be managed by Kubernetes and must be able for: service-discovery, self-healing, rolling upgrade
+The services will be deployed to Kubernetes (1.15.0) and must be able for: service-discovery, self-healing, rolling upgrade
 
-<br/>
-
-Run `./setup.sh` to set up local kubernetes cluster and application infrastructure.  
-The following steps are performed:
-- install Kubernetes in Docker cluster (Kind) with 2 worker nodes
-- start Docker containers for database and Adminer
-- build Docker images for applications and load them into Kind
-
-After running the setup script don't forget to export Kind kubeconfig to connect the cluster with Kubectl
-```bash
-export KUBECONFIG="$(kind get kubeconfig-path --name="kind")"
-```
-
-Adminer is available on `localhost:9000`. Connect to the server by using the host machines IP address (`hostname I`).
-
-Deploy pods, services and ingress from the `kubernetes` folder:
-```bash
-kubectl apply -f deployment.yml
-kubectl apply -f service.yml
-kubectl apply -f ingress.yml
-```
-
-Unfortunately ingress does not work properly with Kind, so you have to port-forward micropost-service 
-if you would like to interact with it over localhost:
-```bash
-kubectl port-forward <micropost-service-pod> 8010
-```
+![](files/diagram.png)
 
 <br/>
 <br/>
+
+
+
+## Set-up
+
+1. Run `./setup.sh` to set up local kubernetes cluster and application infrastructure.  
+    The following steps are performed:
+    - install Kubernetes in Docker cluster (Kind) with 2 worker nodes
+    - start Docker containers for database and Adminer
+    - build Docker images for applications and load them into Kind
+
+2. After running the setup script don't forget to export Kind kubeconfig to connect the cluster with Kubectl
+    ```bash
+    export KUBECONFIG="$(kind get kubeconfig-path --name="kind")"
+    ```
+
+    > Adminer is available on `localhost:9000`. Connect to the server by using the host machines IP address (`hostname I`).
+
+3. Deploy pods, services and ingress from the `kubernetes` folder:
+    ```bash
+    kubectl apply -f deployment.yml
+    kubectl apply -f service.yml
+    kubectl apply -f ingress.yml
+    ```
+
+    > Unfortunately ingress does not work properly with Kind, so you have to port-forward micropost-service and micropost-ui 
+    if you would like to interact with it over localhost:
+    ```bash
+    kubectl port-forward <micropost-service-pod> 8010
+    kubectl port-forward <micropost-ui-pod> 3000
+    ```
+
+<br/>
+
+[![Micropost demo video](files/micropost-demo.png)](files/micropost-demo.mp4)
+<br/>
+<br/>
+
+
+
+## Rolling upgrade
 
 To check rolling upgrade you need to create or tag new images and load them to Kinnd:
 ```bash
@@ -101,7 +117,15 @@ micropost-statistics-6787c9c688-tmv2l   1/1     Running   0          66s
 
 Pods are also recreating if you delete them or when they crash.
 
+<br/>
+<br/>
+
+
+
+## Clean-up
+
 Delete the resources and the cluster by using the commands below:
+
 ```bash
 kubectl delete -f ingress.yml
 kubectl delete -f service.yml
